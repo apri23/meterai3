@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleonback titleakun" >Lacak Kiriman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ng-container *ngIf="_lacak_kiriman_last_status; then laststatus; else nolaststatus"></ng-container>
+
+	<ng-template #laststatus>
+
+		<ion-card style="margin: 0px; margin-bottom: 10px; margin-top: 5px;">
+			<ion-card-subtitle style="padding: 15px 10px; background-color: var(--ion-color-tertiary); color: #fff;">Informasi Kiriman</ion-card-subtitle>
+			<ion-item lines="none" style="margin-bottom: 10px;">
+				<ion-label style="margin: 0px;">
+
+					<p style="margin: 0px; font-size: 13px; margin-top: 5px;">Pengirim :</p>
+					<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{split_lacakkirimanlast_pengirim(_lacak_kiriman[_lacak_kiriman.length - 1].description)}}</p>
+					<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{split_lacakkirimanlast_pengirim_alamat(_lacak_kiriman[_lacak_kiriman.length - 1].description)}}</p>
+
+					<p style="margin: 0px; font-size: 13px; margin-top: 5px;">Penerima :</p>
+					<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{split_lacakkirimanlast_penerima(_lacak_kiriman[_lacak_kiriman.length - 1].description)}}</p>
+					<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{split_lacakkirimanlast_penerima_alamat(_lacak_kiriman[_lacak_kiriman.length - 1].description)}}</p>
+
+					<p style="margin: 0px; font-size: 13px; margin-top: 5px;">Status Kiriman :</p>
+			    	<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{_lacak_kiriman_last_status.eventDate}} | {{_lacak_kiriman_last_status.office}} | {{_lacak_kiriman_last_status.eventName}}</p>
+			    	<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{splitelast_desc_status(_lacak_kiriman_last_status.description)}}</p>
+			    	<p style="margin: 0px; font-size: 12px; padding-left: 5px;">{{splitelast_desc_ket(_lacak_kiriman_last_status.description)}}</p>
+
+				</ion-label>
+			</ion-item>
+			<ion-button size="small" (click)="hidenopendesctrack()" *ngIf="!opendesctrack" fill="clear" expand="block">
+				<ion-icon name="chevron-down-sharp" ></ion-icon>
+			</ion-button>
+			<ion-button size="small" (click)="hidenopendesctrack()" *ngIf="opendesctrack" fill="clear" expand="block">
+				<ion-icon name="chevron-up-sharp" ></ion-icon>
+			</ion-button>
+		</ion-card>
+
+		<ion-card style="margin: 0px;" [hidden]="!opendesctrack">
+			<ion-card-subtitle style="padding: 15px 10px; background-color: var(--ion-color-tertiary); color: #fff;">Perjalanan Paket {{_trx.trx_courir_number}}</ion-card-subtitle>
+			<ion-item *ngFor="let lacak_kiriman of _lacak_kiriman">
+				<ion-label style="margin: 0px;">
+					<p style="margin: 0px; font-size: 13px; white-space: pre-wrap !important; ">{{split_detail_0(lacak_kiriman.description)}} {{split_detail_2(lacak_kiriman.description)}}</p>
+				    <p style="margin: 0px; font-size: 12px;">{{lacak_kiriman.eventDate}}</p>
+				</ion-label>
+			</ion-item>
+		</ion-card>
+
+	</ng-template>
+
+	<ng-template #nolaststatus>
+		<div class="kotaknotif kotaknotifborder2">
+	        <ion-label style="margin: 0px;">
+	            <h4 class="font3">Data tidak di temukan !</h4>
+	        </ion-label>
+	    </div>
+	</ng-template>
+
+</ion-content>

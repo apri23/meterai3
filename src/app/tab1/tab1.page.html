@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar class="tol">
+  	<img style="padding: 0px; margin: 0px; margin-left: 10px; " height="40" src="assets/logometerai2.jpg">
+
+    <ion-buttons ionicon slot="end" class="ikon1" (click)="diskon_action()">
+      <ion-icon slot="icon-only" src="assets/diskon.svg"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="end" class="ikon" (click)="notif()">
+      <ion-icon slot="icon-only" src="assets/notification.svg" ></ion-icon>
+        <ng-container *ngIf="_notif==0; then nonotif; else notifok"></ng-container>
+        <ng-template #nonotif>
+        </ng-template>
+        <ng-template #notifok>
+          <span class="badgenotif">{{_notif}}</span>
+        </ng-template>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+  <ng-container *ngIf="Slidenew==null; then loadslide; else noloadslide"></ng-container>
+  <ng-template #loadslide>
+    <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+  </ng-template>
+  <ng-template #noloadslide>
+  	<ion-slides pager="true" [options]="slideOptsOne" mode="ios" sliders>
+  	    <ion-slide *ngFor="let slide of Slidenew" text-left>
+  	      <div class="slide-img-padding imgHolder">
+  	        <img class="img-slide" src="https://meterai.posindonesia.co.id/image/slider/{{ slide.mark_id }}.jpg?{{date}}" (click)="show_detail(slide.mark_id,slide.mark_header,slide.mark_caption,slide.mark_description)">
+            <ng-container *ngIf="slide.mark_header.length > '25'; then kurang; else lebih"></ng-container>
+            <ng-template #lebih>
+              <span class="textcolor"><i>{{slide.mark_header}}</i></span>
+            </ng-template>
+            <ng-template #kurang>
+  	           <span class="textcolor"><i>{{slide.mark_header.substring(0,25)}}...</i></span>
+            </ng-template>
+  	      </div>                                      
+  	    </ion-slide>
+  	</ion-slides>
+  </ng-template>
+
+  <ng-container *ngIf="_pointreward==11; then load; else dtpointrewards"></ng-container>
+
+  <ng-template #load>
+
+  </ng-template>
+
+  <ng-template #dtpointrewards>
+
+    <ng-container *ngIf="_pointreward==00; then aktif; else nonaktif"></ng-container>
+
+    <ng-template #aktif>
+      <ion-grid class="boxpoint">
+        <ion-row style="padding: 0px;">
+          <ion-col style="padding: 0px; max-width: 20px; margin-right: 8px; margin-left: 20px; margin-top: 10px;">
+            <ion-img style="width: 30px; height: 30px;" src="assets/points.svg"></ion-img>
+          </ion-col>
+          <ion-col style="padding: 0px; align-items: center; display: flex;" (click)="showpoint()">
+
+            <ng-container *ngIf="MemberData==null; then pointlogin; else point"></ng-container>
+            <ng-template #pointlogin>
+              <div class="boxtext">Poin...</div>
+            </ng-template>
+            <ng-template #point>
+              <div class="boxtext">{{ MemberData.member_point }} Poin</div>
+            </ng-template>
+
+          </ion-col>
+          <ion-col style="padding: 0px; margin: 0px; max-width: 1px; height: 50px; border-left: 1px solid rgb(236, 236, 236);"></ion-col>
+          <ion-col style="padding: 0px; max-width: 20px; margin-right: 8px; margin-left: 20px; margin-top: 10px;">
+            <ion-img style="width: 30px; height: 30px;" src="assets/jenismember.svg"></ion-img>
+          </ion-col>
+          <ion-col style="padding: 0px; align-items: center; display: flex;" (click)="showjenismember()">
+
+            <ng-container *ngIf="MemberData==null; then loggedIn; else loggedOut"></ng-container>
+            <ng-template #loggedIn>
+              <div class="boxtext"><i>lihat..</i></div>
+            </ng-template>
+            <ng-template #loggedOut>
+
+              <ng-container *ngIf="MemberData.isFreeOfCharge==0; then nofree; else free"></ng-container>
+              <ng-template #nofree>
+                <div class="boxtext">Reguler</div>
+              </ng-template>
+              <ng-template #free>
+                <div class="boxtext">Khusus</div>
+              </ng-template>
+
+            </ng-template>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+
+  </ng-template>
+
+  <ng-template #nonaktif>
+
+    <ion-grid class="boxpoint">
+      <ion-row style="padding: 0px 0px; height: 50px;">
+        <ion-col style="padding: 0px; max-width: 20px; margin-right: 8px; margin-left: 20px; margin-top: 12px;">
+          <ion-img style="width: 30px; height: 30px;" src="assets/jenismember.svg"></ion-img>
+        </ion-col>
+        <ion-col style="padding: 0px; align-items: center; display: flex;" (click)="showjenismember()">
+          <ng-container *ngIf="MemberData==null; then loggedIn; else loggedOut"></ng-container>
+          <ng-template #loggedIn>
+            <div class="boxtext"><i>lihat..</i></div>
+          </ng-template>
+          <ng-template #loggedOut>
+            <ng-container *ngIf="MemberData.isFreeOfCharge==0; then nofree; else free"></ng-container>
+            <ng-template #nofree>
+              <ng-container *ngIf="MemberData.member_username > '13'; then kurangusr; else lebihusr"></ng-container>
+              <ng-template #lebihusr>
+                  <div class="boxtext">Hai, {{MemberData.member_username.substring(0,13)}}..<br> <span style="font-size: 10px;">Reguler</span></div>
+              </ng-template>
+              <ng-template #kurangusr>
+                  <div class="boxtext">Hai, {{MemberData.member_username}}<br> <span style="font-size: 10px;">Reguler</span></div>
+              </ng-template>
+            </ng-template>
+            <ng-template #free>
+              <div class="boxtext">Hai, {{MemberData.member_username.substring(0,13)}}..<br> <span style="font-size: 10px;">Khusus</span></div>
+            </ng-template>
+          </ng-template>
+        </ion-col>
+        <ion-col style="padding: 0px;">
+          <ion-img style="float: right; width: 130px; height: 50px; padding-right: 5px;" src="assets/dashboardjenis2.png"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ng-template>
+
+  <ng-container
+    *ngIf="Produk==null; then produkload; else produknoload">
+  </ng-container>
+
+  <ng-template #produknoload>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" sizeMd="4" sizeXl="3" *ngFor="let produk of Produk">
+          <ion-card class="colproduk" (click)="show_detail_produk(produk.cat_id)">
+            <img class="imgproduk" src="https://meterai.posindonesia.co.id/image/produk/{{ produk.cat_id }}.jpg?{{date}}" />
+            <ion-card-header style="padding: 7px;">
+              <ion-card-subtitle style="font-family: 'Ubuntu'; font-size: 10px;">{{ produk.c_subgroup }}</ion-card-subtitle>
+              <ion-card-title style="font-family: 'Ubuntu'; font-size: 16px;"><b>{{ produk.catalog_desc }}</b></ion-card-title>
+            </ion-card-header>
+            <ion-card-content style="padding: 7px; padding-top: 0px;"><b>{{produk.catalog_price | currency:"IDR":'Rp ':"1.0" }}</b></ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+  <ng-template #produkload>
+    
+  </ng-template>
+
+</ion-content>
+
+<ion-footer class="ion-no-border" [hidden]="!notiflogin">
+  <ion-item style="--background: rgba(235, 255, 222, 0.9);">
+    <ion-label style="font-size: 11px; margin: 5px 0px;padding-top: 5px;">Kamu sudah punya akun? Ayo <span (click)="to_masuk()"><b>Masuk!</b></span> atau <span (click)="to_daftar()"><b>Daftar!</b></span></ion-label>
+  </ion-item>
+</ion-footer>
+

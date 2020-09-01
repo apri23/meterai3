@@ -1,0 +1,829 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >Instruksi Pembayaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ng-container *ngIf="_dt_virtual_acc==11; then menunggu; else lainnya"></ng-container>
+
+	<ng-template #menunggu>
+		<img style="padding: 20px 10px;" src="assets/wait_pay.svg" height="200" width="100%" />
+		<ion-card-content style="text-align: center;">
+			Mohon Tunggu.. <br>Sedang Menyiapkan Pembayaranmu..
+		</ion-card-content>
+	</ng-template>
+
+	<ng-template #lainnya>
+
+		<ng-container *ngIf="_dt_virtual_acc==99; then gagaljaringandll; else okeadava"></ng-container>
+
+		<ng-template #gagaljaringandll>
+
+		</ng-template>
+
+		<ng-template #okeadava>
+
+			<div class="kotaknotif kotaknotifborder">
+		        <ion-label style="margin: 0px;">
+		            <h4 class="">Selesaikan pembayaran anda ke Nomor Virtual Account yang tertera di bawah ini</h4>
+		        </ion-label>
+		    </div>
+
+		    <div class="kotaknotif kotaknotifborder2">
+		        <ion-label style="margin: 0px;">
+		            <h4 class="font3">* Pastikan jumlah uang sesuai agar pembayaran anda terverifikasi</h4>
+		        </ion-label>
+		    </div>
+
+			<ion-list listion *ngFor="let item of _channel; let i = index;" lines="none" detail="false">
+		        <ion-item tappable (click)="toogleselection(i)">
+		          <img height="50" width="50" slot="start" style="margin-right: 10px;" src="https://meterai.posindonesia.co.id/assets/img/product-2/Filateli_({{item.channel_id}}).jpg">
+		          <ion-label style="margin: 0px;">
+		            <h4 class="fontdes"><b>{{item.channel_desc}}</b></h4>
+		            <h4 class="font">No. Virtual Account <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></h4>
+		            <h4 class="font">Jumlah Uang <b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></h4>
+		          </ion-label>
+		          <ion-icon color="danger" style="font-size: 14px" slot="end" name="chevron-back-sharp" *ngIf="!item.open"></ion-icon>
+		          <ion-icon color="danger" style="font-size: 14px" slot="end" name="chevron-down-sharp" *ngIf="item.open"></ion-icon>
+		        </ion-item>
+
+		        <div *ngIf="item.channel_id && item.open">
+
+		        	<ion-card *ngIf="item.channel_id == 9001" style="margin: 0px; margin-top: 7px;">
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">Cash in Kantor Pos</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Datang ke Kantorpos terdekat</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ambil formulir penambahan saldo</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Isikan nomor Virtual Account <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Siapkan jumlah uang sebesar <b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Berikan formulir dan uang kepada petugas</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">Pos Giro Mobile</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Login pos giro mobile</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan username/email dan password</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Virtual Account</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan PIN PGM</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9002" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM {{item.channel_desc}} & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Transaksi Lainnya > Transfer > ke Rekening {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}} sebagai nomor billing</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">Internet Banking {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke website internet banking {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSAKSI > TRANSFER ANTAR {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">SMS BANKING ({{item.channel_desc}} MOBILE)</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke aplikasi mobile {{item.channel_desc}} SMS BANKING</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSFER > TRANSFER ANTAR {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9003" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM BTN</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu pembayaran</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu multipayment</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9004" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM BCA</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM BCA & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Transaksi Lainnya > Transfer > ke Rekening BCA</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai nomor billing</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">KLIK BCA</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke website KLIK BCA</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSAKSI DANA > TRANSFER KE BCA VA BCA ></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai rekening tujuan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">m-BCA (BCA MOBILE)</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke aplikasi mobile m-BCA SMS BANKING</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu M-TRANSFER > BCA VA ></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai rekening tujuan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">m-BCA (STK - SIM Tool Kit)</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu m-BCA pada menu SIM Card Anda</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSFER > ANTAR BCA</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai rekening tujuan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan PIN BCA Anda lalu tekan OK</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9005" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM {{item.channel_desc}} & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Transaksi Lainnya > Transfer > ke Rekening {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">Internet Banking {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke website internet banking {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSAKSI > TRANSFER ANTAR {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">SMS BANKING ({{item.channel_desc}} MOBILE)</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masuk ke aplikasi mobile {{item.channel_desc}} SMS BANKING</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu TRANSFER > TRANSFER ANTAR {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9006" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM {{item.channel_desc}} & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Transaksi Lainnya > Transfer > ke Rekening {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai nomor billing</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9007" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM {{item.channel_desc}} & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu bayar/beli</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu multipayment</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih kode institusi PT Pos Indonesia (Persero)</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ketik kode perusahaan yaitu "{{_cgs_id}}" </ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Klik daftar kode untuk mencari kode Pos Indonesia, yaitu "{{_cgs_id}}" </ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">7. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan nomor Virtual Account <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> kemudian tekan benar</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">8. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Muncul konfirmasi data customer, Pilih nomor 1 sesuai tagihan yang akan dibayar, kemudian tekan YA</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">9. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Muncul konfirmasi pembayaran. Tekan YA untuk melakukan pembayaran</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">10. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+						<ion-card-header style="padding: 7px;">
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">{{item.channel_desc}} ONLINE</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;"> Masuk {{item.channel_desc}} ONLINE</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu PEMBAYARAN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu MULTIPAYMENT</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih kode institusi PT Pos Indonesia (Persero)</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai nomor VA/nomor Billing dan Nominal, kemudian pilih lanjutkan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Konfirmasi pembayaran, lalu pilih Lanjutkan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">7. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Gunakan Token untuk kemananan transaksi</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">8. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Transaksi berhasil (bukti pembayaran disimpan apabila diperlukan)</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+
+					<ion-card *ngIf="item.channel_id == 9008" style="margin: 0px; margin-top: 7px;">
+					    <ion-card-header style="padding: 7px;">
+					    	<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Nomor Virtual Account</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copyva(item.channel_prefix+_cgs_id+_va.va)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">
+								<ion-grid style="padding: 0px;">
+								  <ion-row style="margin: 0px;">
+								    <ion-col size="11" style="padding: 0px;">
+								    	<p style="margin: 0px; font-size: 11px;">Jumlah Uang 
+								    		<ng-container *ngIf="item.channel_value==0; then nobeaadmin; else withbeaadmin"></ng-container>
+								    		<ng-template #nobeaadmin>
+								    			(bebas biaya admin)
+								    		</ng-template>
+								    		<ng-template #withbeaadmin>
+								    			(sudah termasuk biaya admin <b>{{item.channel_value | currency:"IDR":'Rp ':"1.0" }}</b>)
+								    		</ng-template>
+								    	</p>
+										<p style="margin: 0px; padding-top: 4px; font-size: 12px;"><b>{{item.jml_all | currency:"IDR":'Rp ':"1.0" }}</b></p>
+
+								    </ion-col>
+								    <ion-col size="1" style="padding: auto; font-size: 10px; text-align: center;"><ion-icon (click)="copybsu(item.jml_all)" color="primary" name="copy"></ion-icon></ion-col>
+								  </ion-row>
+								</ion-grid>
+							</ion-card-subtitle>
+							<ion-card-subtitle style="padding: 10px 10px; background-color: var(--ion-color-light);">ATM {{item.channel_desc}}</ion-card-subtitle>
+							<ion-grid style="padding: 0px;">
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">1. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukkan Kartu ATM {{item.channel_desc}} & PIN</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">2. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pilih menu Transaksi Lainnya > Transfer > ke Rekening {{item.channel_desc}}</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">3. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Masukan nomor Virtual Account Anda <b>{{item.channel_prefix}}{{_cgs_id}}{{_va.va}}</b> sebagai nomor billing</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">4. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA dan Total Tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">5. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Pastikan Jumlah yang ditampilkan sesuai dengan total tagihan</ion-col>
+							  </ion-row>
+							  <ion-row style="margin-top: 7px;">
+							    <ion-col size="1" style="padding: 0px; text-align: center; font-size: 12px;">6. </ion-col>
+							    <ion-col size="11" style="padding: 0px; font-size: 12px;">Ikuti instruksi untuk menyelesaikan transaksi</ion-col>
+							  </ion-row>
+							</ion-grid>
+						</ion-card-header>
+					</ion-card>
+					
+		        </div>
+		    </ion-list>
+
+		</ng-template>
+
+	</ng-template>
+
+</ion-content>

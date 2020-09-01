@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >Ubah Data Pribadi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ng-container *ngIf="_provinsi; then noload; else load"></ng-container>
+  	
+  	<ng-template #load>
+  	</ng-template>
+
+  	<ng-template #noload>
+  	  <form formclass [formGroup]="registrationForm" (ngSubmit)="submit()">
+      <ion-list class="textcolor">
+
+      	<ion-item>
+	        <ion-label position="stacked">Nama Depan <ion-text color="danger">*</ion-text></ion-label>
+	        <ion-input type="text" formControlName="nama_depan"></ion-input>
+	    </ion-item>
+	    <div *ngFor="let error of errorMessages.nama_depan">
+          <ng-container *ngIf="nama_depan.hasError(error.type) && (nama_depan.dirty || nama_depan.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	    <ion-item>
+	        <ion-label position="stacked">Nama Belakang <ion-text color="danger">*</ion-text></ion-label>
+	        <ion-input type="text" formControlName="nama_belakang"></ion-input>
+	    </ion-item>
+	    <div *ngFor="let error of errorMessages.nama_belakang">
+          <ng-container *ngIf="nama_belakang.hasError(error.type) && (nama_belakang.dirty || nama_belakang.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	    <ion-item>
+	        <ion-label position="stacked">No. Handphone <ion-text color="danger">*</ion-text></ion-label>
+	        <ion-input type="text" formControlName="telepon"></ion-input>
+	    </ion-item>
+	    <div *ngFor="let error of errorMessages.telepon">
+          <ng-container *ngIf="telepon.hasError(error.type) && (telepon.dirty || telepon.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	    <ion-item>
+          <ion-label position="stacked">Provinsi <ion-text color="danger">*</ion-text></ion-label>
+		  <ion-select formControlName="provinsi" [interfaceOptions]="customOptionsprov" interface="action-sheet" cancel-text="Batal" (ionChange)="get_kabkot($event)">
+		  	<ion-select-option *ngFor="let provinsi of _provinsi" value="{{provinsi.provinceName}}~{{provinsi.provinceCode}}" >{{provinsi.provinceName}}</ion-select-option>
+		  </ion-select>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.provinsi">
+          <ng-container *ngIf="provinsi.hasError(error.type) && (provinsi.dirty || provinsi.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Kab/Kota <ion-text color="danger">*</ion-text></ion-label>
+		  <ion-select formControlName="kabkot" [interfaceOptions]="customOptionskota" interface="action-sheet" cancel-text="Batal" (ionChange)="get_kec($event)">
+		  	<ion-select-option *ngFor="let kabkot of _kabkot" value="{{kabkot.cityType}} {{kabkot.cityName}}~{{kabkot.cityCode}}" >{{kabkot.cityType}} {{kabkot.cityName}}</ion-select-option>
+		  </ion-select>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.kabkot">
+          <ng-container *ngIf="kabkot.hasError(error.type) && (kabkot.dirty || kabkot.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Kecamatan </ion-label>
+		  <ion-select formControlName="kecamatan" [interfaceOptions]="customOptionskec" interface="action-sheet" cancel-text="Batal" (ionChange)="get_kel($event)">
+		  	<ion-select-option *ngFor="let kecamatan of _kecamatan" value="{{kecamatan.subDistrictType}} {{kecamatan.subDistrictName}}~{{kecamatan.subDistrictCode}}" >{{kecamatan.subDistrictType}} {{kecamatan.subDistrictName}}</ion-select-option>
+		  </ion-select>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.kecamatan">
+          <ng-container *ngIf="kecamatan.hasError(error.type) && (kecamatan.dirty || kecamatan.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Kelurahan </ion-label>
+		  <ion-select formControlName="kelurahan" [interfaceOptions]="customOptionskec" interface="action-sheet" cancel-text="Batal" (ionChange)="get_postal($event)">
+		  	<ion-select-option *ngFor="let kelurahan of _kelurahan" value="{{kelurahan.subSubDistrictType}} {{kelurahan.subSubDistrictName}}~{{kelurahan.postalCode}}" >{{kelurahan.subSubDistrictType}} {{kelurahan.subSubDistrictName}}</ion-select-option>
+		  </ion-select>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.kelurahan">
+          <ng-container *ngIf="kelurahan.hasError(error.type) && (kelurahan.dirty || kelurahan.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+	        <ion-label position="stacked">Kode Pos <ion-text color="danger">*</ion-text></ion-label>
+	        <ion-input type="text" formControlName="postal" ></ion-input>
+	    </ion-item>
+	    <div *ngFor="let error of errorMessages.postal">
+          <ng-container *ngIf="postal.hasError(error.type) && (postal.dirty || postal.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	    <ion-item>
+          <ion-label position="stacked">Alamat Lengkap <ion-text color="danger">*</ion-text></ion-label>
+          <ion-textarea formControlName="street" rows="4"></ion-textarea>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.street">
+          <ng-container *ngIf="street.hasError(error.type) && (street.dirty || street.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label style="font-size: 11px; white-space: pre-wrap !important;"><ion-text color="danger">*</ion-text> Jika kecamatan atau kelurahan tidak di temukan, mohon di cantumkan pada alamat lengkap..</ion-label>
+        </ion-item>
+
+        </ion-list>
+      	<ion-button class="btnregister" mode="ios" type="submit" [disabled]="!registrationForm.valid" type="submit" expand="block">SIMPAN PERUBAHAN</ion-button>
+
+      </form>
+    
+  	</ng-template>
+
+</ion-content>

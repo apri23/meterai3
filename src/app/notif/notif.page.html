@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start">
+    	<ion-icon name="arrow-back-outline" style="margin-left: 10px;" (click)="back_tabs1()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleonback titleakun">Notifikasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+	<ng-container *ngIf="_konfirmasiselesai==11 && _menunggupembayaran==11; then load; else notload"></ng-container>
+
+  	<ng-template #load>
+
+  		<ion-list *ngFor="let transaksidummy of [1,2,3]">
+		  <ion-item lines="none" >
+	          <!-- <ion-thumbnail slot="start">
+					<ion-skeleton-text animated></ion-skeleton-text>
+				</ion-thumbnail> -->
+	          <ion-label style="margin: 5px 0px;">
+	          	<ion-skeleton-text animated style="width: 50%; margin: 5px 0px;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 100%; margin: 5px 0px;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 70%; margin: 5px 0px;"></ion-skeleton-text>
+	          </ion-label>
+	      </ion-item>
+
+		</ion-list>
+
+  	</ng-template>
+
+  	<ng-template #notload>
+
+  		<ng-container *ngIf="_dikeranjang==99 && _konfirmasiselesai==99 && _menunggupembayaran==99; then notifnull; else notif"></ng-container>
+
+  		<ng-template #notifnull>
+  			<img style="padding: 20px 10px; margin-top: 20px;" src="assets/emptydata.svg" height="200" width="100%" />
+			<ion-card-content style="text-align: center;">
+				Belum ada pemberitahuan untuk saat ini..
+			</ion-card-content>
+  		</ng-template>
+
+  		<ng-template #notif>
+
+  			<ng-container *ngIf="_dikeranjang==99; then dikeranjangnull; else dikeranjangs"></ng-container>
+
+	  		<ng-template #dikeranjangnull>
+
+	  		</ng-template>
+
+	  		<ng-template #dikeranjangs>
+
+	  			<ion-list *ngFor="let dikeranjang of _dikeranjang" class="textcolor">
+				  <ion-item lines="none" (click)="ke_keranjang()" style="--background: #F1FFDE">
+			          <ion-thumbnail slot="start" style="margin: 0px; padding: 5px 0px; padding-right: 16px;">
+			            <img style="" src="assets/notifcart.svg">
+			          </ion-thumbnail>
+			          <ion-label style="margin: 5px 0px;">
+			            <h3 style="white-space: pre-wrap !important;">Anda memiliki pesanan yang belum selesai...</h3>
+			            <p style="white-space: pre-wrap !important; font-size: 11px;">Lakukan proses order untuk mendapatkan pesanan anda..</p>
+			          	<p style="white-space: pre-wrap !important; font-size: 11px;">Lihat..</p>
+			          </ion-label>
+			      </ion-item>
+				</ion-list>
+			
+	  		</ng-template>
+
+  			<ng-container *ngIf="_menunggupembayaran==99; then menunggunull; else menunggu"></ng-container>
+
+	  		<ng-template #menunggunull>
+
+	  		</ng-template>
+
+	  		<ng-template #menunggu>
+
+	  			<ion-list *ngFor="let menunggupembayaran of _menunggupembayaran" class="textcolor">
+				  <ion-item lines="none" (click)="detail_transaksi(menunggupembayaran.trx_id)" style="--background: #FFF5DE">
+			          <ion-thumbnail slot="start" style="margin: 0px; padding: 5px 0px; padding-right: 16px;">
+			            <img style="" src="assets/wallet.svg">
+			          </ion-thumbnail>
+			          <ion-label style="margin: 5px 0px;">
+			          	<p style="white-space: pre-wrap !important; font-size: 11px;">No. Transaksi {{menunggupembayaran.trx_id}}</p>
+			            <h3 style="white-space: pre-wrap !important;">Menunggu Pembayaran Anda...</h3>
+			            <p style="white-space: pre-wrap !important; font-size: 11px;">Lakukan pembayaran untuk mendapatkan pesanan anda..</p>
+			          </ion-label>
+			      </ion-item>
+			      <!-- <ion-button color="danger" (click)="paymentintruction(menunggupembayaran.trx_id)" style="margin: 0px; font-size: 12px; text-transform: none;" size="small" expand="block">Cara Pembayaran</ion-button> -->
+				</ion-list>
+			
+	  		</ng-template>
+
+	  		<ng-container *ngIf="_konfirmasiselesai==99; then konfirmasinull; else konfirmasi"></ng-container>
+
+	  		<ng-template #konfirmasinull>
+
+	  		</ng-template>
+
+	  		<ng-template #konfirmasi>
+
+	  			<ion-list class="textcolor" *ngFor="let konfirmasiselesai of _konfirmasiselesai" >
+
+	  				<ng-container *ngIf="konfirmasiselesai.last_status==1; then sampai; else belumsampai"></ng-container>
+	  				<ng-template #sampai>
+					  <ion-item lines="none" (click)="detail_transaksi(konfirmasiselesai.trx_id)" style="--background: #DEFFE8">
+				          <ion-thumbnail slot="start" style="margin: 0px; padding: 5px 0px; padding-right: 16px;">
+				            <img style="" src="assets/deliver.svg">
+				          </ion-thumbnail>
+				          <ion-label style="margin: 5px 0px;">
+				          	<p style="white-space: pre-wrap !important; font-size: 11px;">No. Transaksi {{konfirmasiselesai.trx_id}}</p>
+				            <h3 style="white-space: pre-wrap !important;">Barang pesanan anda sudah sampai..</h3>
+				            <p style="white-space: pre-wrap !important; font-size: 11px;">Konfirmasi untuk menyelesaikan transaksi anda..</p>
+				          </ion-label>
+				      </ion-item>
+				      <!-- <ion-button color="success" (click)="konfirmasi_selesai(konfirmasiselesai.trx_id)" style="margin: 0px; font-size: 12px; text-transform: none;" size="small" expand="block">Konfirmasi Selesai</ion-button> -->
+				  	</ng-template>
+
+				  	<ng-template #belumsampai>
+					  <ion-item lines="none" (click)="detail_transaksi(konfirmasiselesai.trx_id)" style="--background: #DEFFE8">
+				          <ion-thumbnail slot="start" style="margin: 0px; padding: 5px 0px; padding-right: 16px;">
+				            <img style="" src="assets/deliver.svg">
+				          </ion-thumbnail>
+				          <ion-label style="margin: 5px 0px;">
+				          	<p style="white-space: pre-wrap !important; font-size: 11px;">No. Transaksi {{konfirmasiselesai.trx_id}}</p>
+				            <h3 style="white-space: pre-wrap !important;">Barang pesanan anda sudah di kirim..</h3>
+				            <p style="white-space: pre-wrap !important; font-size: 11px;">Pantau pesanan anda tombol Lacak Kiriman..</p>
+				          </ion-label>
+				      </ion-item>
+				      <!-- <ion-button color="tertiary" (click)="lacak_kiriman(konfirmasiselesai.trx_courir_number,konfirmasiselesai.trx_id)" style="margin: 0px; font-size: 12px; text-transform: none;" size="small" expand="block">Lacak Kiriman</ion-button> -->
+				  	</ng-template>
+
+				</ion-list>
+
+	  		</ng-template>
+
+	  	</ng-template>
+
+  	</ng-template>
+
+</ion-content>

@@ -1,0 +1,252 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleonback titleakun" >Detail Transaksi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ng-container *ngIf="_trx==11; then load; else notload"></ng-container>
+
+	<ng-template #load>
+
+	</ng-template>
+
+	<ng-template #notload>
+
+		<ion-list style="margin-top: 10px; padding: 0px;">
+			<ion-list-header>
+	        	<ion-label style="margin: 0px; font-size: 12px;">No. Transaksi</ion-label>
+	        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>{{ _trx.trx_id }}</b></span>
+	        </ion-list-header>
+			<ion-list-header>
+	        	<ion-label style="margin: 0px; font-size: 12px;">Status</ion-label>
+	        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>{{ _trx.status_trx }}</b></span>
+	        </ion-list-header>
+	        <ion-list-header>
+	        	<ion-label style="margin: 0px; font-size: 12px;">Tanggal Pembelian</ion-label>
+	        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>{{ _trx.trx_date_open | date:'dd LLL yyyy' }}</b></span>
+	        </ion-list-header>
+	    </ion-list>
+
+	    <ng-container *ngIf="_trx.trx_status==1; then noinfo; else showinfo"></ng-container>
+
+	    <ng-template #noinfo>
+
+	    </ng-template>
+
+	    <ng-template #showinfo>
+
+	    	<ng-container *ngIf="_trx_va.sts_va==0; then admin; else cgs"></ng-container>
+
+	    	<ng-template #admin>
+	    		<ion-list style="margin-top: 10px; padding: 0px; padding-bottom: 10px; ">
+				    <ion-label nocaps>
+				    	<ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+				          <ion-card-title style="font-size: 12px;"><b>Informasi Pembayaran</b></ion-card-title>
+				        </ion-card-header>
+				        <p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Status Pembayaran <span style="float: right; color: var(--ion-color-success);"><b>Terverifikasi</b></span></p>
+				        <p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Tanggal Pembayaran <span style="float: right;">{{ _trx.trx_date_paid | date:'dd MMMM yyyy' }}</span></p>
+				    </ion-label>
+				</ion-list>
+	    	</ng-template>
+
+	    	<ng-template #cgs>
+	    		<ion-list style="margin-top: 10px; padding: 0px; padding-bottom: 10px; ">
+				    <ion-label nocaps>
+				    	<ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+				          <ion-card-title style="font-size: 12px;"><b>Informasi Pembayaran</b></ion-card-title>
+				        </ion-card-header>
+				        <p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Status Pembayaran <span style="float: right; color: var(--ion-color-success);"><b>Terverifikasi</b></span></p>
+				        <p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Tanggal Pembayaran <span style="float: right;">{{ _trx_va.tgl_proses | date:'dd MMMM yyyy HH:mm:ss' }}</span></p>
+			    		<p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Virtual Account <span style="float: right;">{{_trx_va.chanel_bank}}</span></p>
+				    </ion-label>
+				</ion-list>
+	    	</ng-template>
+	    	
+	    </ng-template>
+
+	    <ion-list style="margin-top: 10px; padding: 0px;">
+			<ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+	          <ion-card-title style="font-size: 12px;"><b>Daftar Produk</b></ion-card-title>
+	        </ion-card-header>
+	        <ion-item *ngFor="let transaksi of _trx_det">
+				<img class="gmbarmmber" width="70" src="https://meterai.posindonesia.co.id/image/produk/{{ transaksi.trxd_catalog_id }}.jpg" />
+				<ion-label>
+					<span style="white-space: pre-wrap !important; text-align: justify; font-size: 15px;">{{ transaksi.catalog_desc }}</span>
+					<p style="font-size: 12px;">{{transaksi.catalog_price | currency:"IDR":'Rp ':"1.0" }}</p>
+					<p style="font-size: 12px;">Jumlah Produk : {{ transaksi.trxd_qty }} {{ transaksi.catalog_satuan }}</p>
+				</ion-label>
+			</ion-item>
+			<ion-item center lines="none">
+				<ion-label style="margin: 5px 0px;" >
+					<span style="white-space: pre-wrap !important; text-align: justify; font-size: 13px;">
+						Sub Total <span style="float: right;"><b>{{_trx_det_sum.jumlah_harga | currency:"IDR":'Rp ':"1.0" }}</b></span>
+					</span>
+				</ion-label>
+			</ion-item>
+	    </ion-list>
+
+	    <ion-list style="margin-top: 10px; padding: 0px;">
+	        <ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+	          <ion-card-title style="font-size: 12px;"><b>Alamat Pengiriman</b></ion-card-title>
+	        </ion-card-header>
+	        <ion-card-header style="padding: 0px 16px; margin-bottom: 10px; margin-top: 11px;">
+	          <ion-card-subtitle style="font-size: 13px;">{{_trx.trx_receiver_name}} ({{_trx.trx_receiver_phone}})</ion-card-subtitle>
+	        </ion-card-header>
+	        <ion-card-header style="padding: 0px 16px; margin-bottom: 16px;">
+	          <ion-card-subtitle style="font-size: 13px;">{{splite_alamat(_trx.trx_receiver_address)}} {{_trx.trx_receiver_city}} {{_trx.trx_receiver_region}} {{_trx.trx_receiver_postal_code}}</ion-card-subtitle>
+	        </ion-card-header>
+	    </ion-list>
+
+	    <ion-list style="margin-top: 10px; padding: 0px; padding-bottom: 10px; ">
+	        <ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+	          <ion-card-title style="font-size: 12px;"><b>Kantor Pos Pengirim</b></ion-card-title>
+	        </ion-card-header>
+	        <ion-card-header style="padding: 0px 16px; margin-bottom: 10px; margin-top: 11px;">
+	          <ion-card-subtitle style="font-size: 13px;">{{_trx.trx_nopen_kprk}} - {{_trx.nama_kantor}}</ion-card-subtitle>
+	        </ion-card-header>
+	    </ion-list>
+
+	    <ng-container *ngIf="_trx.bebas_ongkir==0; then bebas_ongkir1; else no_bebas_ongkir1"></ng-container>
+
+    	<ng-template #bebas_ongkir1>
+    		<ion-list style="margin-top: 10px; padding: 0px;">
+				<ion-list-header>
+		        	<ion-label style="margin: 0px; font-size: 12px;">Layanan Pengiriman</ion-label>
+		        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>Bebas Layanan Kirim</b></span>
+		        </ion-list-header>
+		    </ion-list>
+    	</ng-template>
+
+    	<ng-template #no_bebas_ongkir1>
+
+    		<ion-list style="margin-top: 10px; padding: 0px;">
+				<ion-list-header>
+		        	<ion-label style="margin: 0px; font-size: 12px;">Layanan Pengiriman</ion-label>
+		        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>{{ _trx.trx_courir_name }}</b></span>
+		        </ion-list-header>
+				<ion-list-header>
+		        	<ion-label style="margin: 0px; font-size: 12px;">Estimasi</ion-label>
+		        	<span style="float: right; padding-right: 16px; font-size: 12px;"><b>{{ _trx.trx_courir_note }}</b></span>
+		        </ion-list-header>
+
+		        <ng-container *ngIf="_trx.trx_status==4 || _trx.trx_status==5; then barcode; else nobarcode"></ng-container>
+
+		        <ng-template #barcode>
+
+		        	<ng-container *ngIf="_trx.bebas_ongkir==0; then bebas_ongkir; else no_bebas_ongkir"></ng-container>
+
+		        	<ng-template #bebas_ongkir>
+		        		
+		        	</ng-template>
+
+		        	<ng-template #no_bebas_ongkir>
+		        		<ion-list-header>
+				        	<ion-label style="margin: 0px; font-size: 12px;">Nomor Barcode Pengiriman</ion-label>
+				        	<span style="float: right; padding-right: 16px; font-size: 12px;" (click)="copy_resi(_trx.trx_courir_number)"><b>{{ _trx.trx_courir_number }}</b></span>
+				        </ion-list-header>
+		        	</ng-template>
+
+		    	</ng-template>
+		    </ion-list>
+
+    	</ng-template>
+
+    	<ion-list style="margin-top: 10px; padding: 0px; padding-bottom: 10px; ">
+		    <ion-label nocaps>
+		    	<ion-card-header style="padding: 10px 16px; padding-top: 15px;">
+		          <ion-card-title style="font-size: 12px;"><b>Ringkasan Pesanan</b></ion-card-title>
+		        </ion-card-header>
+	    		<p style="font-size: 12px; margin-top: 12px; padding: 0px 16px;">Jumlah Produk <span style="float: right;">{{_trx.trx_totalcatalog}}</span></p>
+		    	<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Total Berat (termasuk pengemasan) <span style="float: right;">{{_trx.trx_total_weight}} gram</span></p>
+		    	<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Total Harga <span style="float: right;">{{_trx.trx_total_price | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+
+		    	<ng-container *ngIf="_trx.trx_total_tarif==0; then bebas_ongkir2; else no_bebas_ongkir2"></ng-container>
+
+		    	<ng-template #bebas_ongkir2>
+
+		    	</ng-template>
+
+		    	<ng-template #no_bebas_ongkir2>
+		    		<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Ongkos Kirim <span style="float: right;">{{ongkir(_trx.trx_total_tarif,_trx.trx_total_tax) | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+		    		<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Asuransi <span style="float: right;">{{asuransi(_trx.trx_insurance,_trx.trx_insuranceTax) | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+		    	</ng-template>
+
+		    	<ng-container *ngIf="_trx.trx_paid_usediscctl==0; then nodiscctl; else discctl"></ng-container>
+
+		    	<ng-template #nodiscctl>
+
+		    	</ng-template>
+
+		    	<ng-template #discctl>
+		    		<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Diskon Produk <span style="float: right;">{{_trx.trx_paid_usediscctl | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+		    	</ng-template>
+
+		    	<ng-container *ngIf="_trx.trx_paid_usepromo==0; then nopromo; else promo"></ng-container>
+
+		    	<ng-template #nopromo>
+
+		    	</ng-template>
+
+		    	<ng-template #promo>
+		    		<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Promo <span style="float: right;">{{_trx.trx_paid_usepromo | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+		    	</ng-template>
+
+		    	<ng-container *ngIf="_trx.trx_paid_usepoint==0; then nopoint; else point"></ng-container>
+
+		    	<ng-template #nopoint>
+
+		    	</ng-template>
+
+		    	<ng-template #point>
+		    		<p style="font-size: 12px; margin-top: 7px; padding: 0px 16px;">Poin di gunakan <span style="float: right;">{{_trx.trx_paid_usepoint | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+		    	</ng-template>
+
+			</ion-label>
+		</ion-list>
+
+		<ion-list style="margin: 10px 0px; padding: 0px;">
+			<ion-list-header>
+	        	<ion-label style="margin: 0px; font-size: 13px;"><b>Grand Total</b></ion-label>
+	        	<span style="float: right; padding-right: 16px; font-size: 13px;"><b>{{_trx.trx_paid_cash | currency:"IDR":'Rp. ':"1.0" }}</b></span>
+	        </ion-list-header>
+	    </ion-list>
+
+	    <ng-container *ngIf="_trx.trx_status==1; then menunggupembayaran; else nomenunggupembayaran"></ng-container>
+
+	    <ng-template #menunggupembayaran>
+	    	<ion-button color="danger" (click)="paymentintruction(_trx.trx_id)" style="margin: 0px 10px; margin-bottom: 10px; font-size: 12px; text-transform: none;" size="medium" expand="block">Cara Pembayaran</ion-button>
+		</ng-template>
+
+		<ng-template #nomenunggupembayaran>
+
+		</ng-template>
+
+		<ng-container *ngIf="_trx.trx_status==4; then terkirim; else noterkirim"></ng-container>
+
+	    <ng-template #terkirim>
+
+	    	<!-- <ng-container *ngIf="_trx.trx_total_tarif==0; then freeongkir; else nofreeongkir"></ng-container>
+
+	    	<ng-template #freeongkir>
+	    	</ng-template> -->
+
+	    	<!-- <ng-template #nofreeongkir> -->
+	    		<ion-button color="primary" (click)="lacak_kiriman(_trx.trx_courir_number,_trx.trx_id)" style="margin: 0px 10px; margin-bottom: 10px; font-size: 12px; text-transform: none;" size="medium" expand="block">Lacak Kiriman</ion-button>
+	    	<!-- </ng-template> -->
+
+	    	<ion-button color="success" (click)="konfirmasi_selesai(_trx.trx_id)" style="margin: 0px 10px; margin-bottom: 10px; font-size: 12px; text-transform: none;" size="medium" expand="block">Konfirmasi Selesai</ion-button>
+	    	
+		</ng-template>
+
+		<ng-template #noterkirim>
+
+		</ng-template>
+
+	</ng-template>
+
+</ion-content>

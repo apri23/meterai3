@@ -1,0 +1,150 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="tol">
+  	<ion-title class="titleakun">Akun Saya</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+	
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+	<ng-container
+		*ngIf="MemberData==null; then load; else noload">
+    </ng-container>
+    <ng-template #load>
+	    <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+    </ng-template>
+    <ng-template #noload>
+    	<div class="css-4">
+    		<div class="css-6" (click)="presentActionSheet()">
+    			<label class="css-7" for="input_form"></label>
+    			<ng-container *ngIf="gambar==null; then nogambar; else gambars"></ng-container>
+  				<ng-template #nogambar>
+    				<img class="css-8" src="https://meterai.posindonesia.co.id/image/man.svg" alt="Edit Profile">
+    			</ng-template>
+    			<ng-template #gambars>
+    				<img class="css-8" src="{{gambar}}" alt="Edit Profile">
+    			</ng-template>
+    			<span class="css-9"><ion-icon src="assets/edit.svg"></ion-icon></span>
+    		</div>
+    	</div>
+    	<ion-card-header style="padding: 0px;padding-bottom: 20px;">
+          <ion-card-title style="text-align: center; font-size: 17px">{{MemberData.member_nama_depan}} {{MemberData.member_nama_belakang}}</ion-card-title>
+        </ion-card-header>
+		
+		<ion-list class="textcolor">
+	        <ion-list-header>
+	        	<ion-label style="font-size: 15px;">Data Pribadi Saya</ion-label>
+	          	<ion-button color="tertiary" style="float: right; font-size: 15px;" (click)="editdatapribadi()"><ion-icon src="assets/edit.svg"></ion-icon></ion-button>
+	        </ion-list-header>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Nomor HP</p>
+	            <h2 class="font">{{MemberData.member_phone}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Provinsi</p>
+	            <h2 class="font">{{MemberData.member_region}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Kab/Kota</p>
+	            <h2 class="font">{{MemberData.member_city}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Kecamatan</p>
+	        	<ng-container *ngIf="MemberData.member_address.split('~')[0]==0; then nokec; else kec"></ng-container>
+	            <ng-template #nokec>
+	            	<h2 class="font"></h2>
+	            </ng-template>
+	            <ng-template #kec>
+	            	<h2 class="font">{{MemberData.member_address.split('~')[0]}}</h2>
+	            </ng-template>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Kelurahan</p>
+	            <ng-container *ngIf="MemberData.member_address.split('~')[1]==0; then nokel; else kel"></ng-container>
+	            <ng-template #nokel>
+	            	<h2 class="font"></h2>
+	            </ng-template>
+	            <ng-template #kel>
+	            	<h2 class="font">{{MemberData.member_address.split('~')[1]}}</h2>
+	            </ng-template>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Kode Pos</p>
+	            <h2 class="font">{{MemberData.member_postal_code}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Alamat Lengkap</p>
+	            <h2 class="font" style="white-space: pre-wrap !important; text-align: justify;">{{MemberData.member_address.split('~')[2]}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	      </ion-list>
+
+	      <ion-list class="textcolor">
+	        <ion-list-header class="textcolor">
+	          <ion-label style="font-size: 15px;">Informasi Akun Saya</ion-label>
+	          <ion-button color="tertiary" style="float: right; font-size: 15px;" (click)="editdataakun()"><ion-icon src="assets/edit.svg"></ion-icon></ion-button>
+	        </ion-list-header>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Nama Pengguna / Member Id</p>
+	            <h2 class="font">{{MemberData.member_username}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Email Pengguna <ion-badge color="success" style="font-size: 12px;"><ion-icon style="color: #fff; font-size: 12px;" name="checkmark-sharp"></ion-icon> Terverifikasi</ion-badge> </p>
+	            <h2 class="font">{{MemberData.member_email}}</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item>
+	          <ion-label>
+	            <p class="font">Password</p>
+	            <h2 class="font">**********</h2>
+	          </ion-label>
+	        </ion-item>
+
+	        <ion-item (click)="out_akun()">
+	          <ion-icon src="assets/logout.svg"></ion-icon>
+	          <ion-label style="font-size: 15px; margin-left: 10px;">Keluar</ion-label>
+	        </ion-item>
+
+	        <ion-item lines="none">
+	          <ion-label>
+	            <p style="text-align: center;">{{versi}}</p>
+	          </ion-label>
+	        </ion-item>
+
+	      </ion-list>
+
+	</ng-template>
+
+</ion-content>

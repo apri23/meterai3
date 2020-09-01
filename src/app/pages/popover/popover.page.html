@@ -1,0 +1,28 @@
+<ion-list>
+	<ion-list-header>{{deskripsi}}</ion-list-header>
+	<ion-item lines="none">
+	  <ion-label margin >Jumlah Produk</ion-label>
+	</ion-item>
+	<ion-item center lines="none">
+		<ion-input min="5" [(ngModel)]="qtyok" qty class="ion-text-center" type="number" (ionChange)="cek_qty()"></ion-input>
+	</ion-item>
+	<!-- <ion-item center lines="none">
+		<ion-label></ion-label>
+		<ion-button size="small" (click)="decrement()" mode="ios"><ion-icon style="margin: 0px 0px;" name="remove-sharp"></ion-icon></ion-button>
+		<ion-icon iconqty src="assets/less.svg" (click)="decrement()"></ion-icon>
+	  		<span qty >{{qtynumber}}</span>
+	  	<ion-button size="small" (click)="increment()" mode="ios"><ion-icon style="margin: 0px 0px;" name="add-outline"></ion-icon></ion-button>
+		<ion-icon iconqty src="assets/plus.svg" (click)="increment()"></ion-icon>
+		<ion-label></ion-label>
+	</ion-item> -->
+</ion-list>
+<ion-grid style="padding: 0px;">
+  <ion-row>
+	<ion-col style="padding: 0px;">
+		<ion-button nocaps expand="block" fill="full" (click)="closePopover()">Batal</ion-button>
+	</ion-col>
+	<ion-col style="padding: 0px;">
+		<ion-button [disabled]="!canadd" nocaps expand="block" (click)="Simpan()">Perbarui</ion-button>
+	</ion-col>
+  </ion-row>
+</ion-grid>

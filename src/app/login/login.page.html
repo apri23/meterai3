@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start">
+    	<ion-icon name="arrow-back-outline" style="margin-left: 10px;" (click)="tabs1_action()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun">Masuk</ion-title>
+    <ion-buttons class="ikon" slot="end" (click)="register_action()"><span daftar >Daftar</span></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="login-header">
+		<img class="logo-img" src="assets/logometerai.svg" />
+	</div>
+
+	<div class="center">
+		<ion-item transparent>
+			<img icon-small src="assets/userlogin.svg" />
+			<ion-input ioninput [(ngModel)]="username" placeholder="Nama Pengguna.." type="text"></ion-input>
+		</ion-item>
+		<ion-item transparent>
+			<img icon-small src="assets/passwordlogin.svg" />
+			<ion-input ioninput name="password" [(ngModel)]="password" placeholder="Kata Sandi.." [type]="showPassword ? 'text' : 'password'"></ion-input>
+			<ion-icon matadewa slot="end" (click)="togglePassword()" [name]="passwordToggleIcon"></ion-icon>
+		</ion-item>
+		<ion-label label class="forgetpassword" (click)="show_reset_pass()">lupa Kata Sandi?</ion-label>
+		<div linespace></div>
+		<ion-button [disabled]="!canSave" mode="ios" color="tertiary" class="ion-button-class" fill="solid" size="default" expand="block" (click)="login_action()">MASUK</ion-button>
+		<ion-label label class="iontextcenter">Belum punya akun? <span class="spandaftar" (click)="register_action()">Daftar</span></ion-label>
+	</div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="tol2">
+    <ion-title labelbot class="iontextcenterbot">© 2020 PT Pos Indonesia (Persero) - Bangsisfo Support</ion-title>
+  </ion-toolbar>
+</ion-footer>

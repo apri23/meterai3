@@ -1,0 +1,105 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="tol">
+  	<ion-title class="titleakun">Keranjang Belanja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+  	<ion-title class="title">Keranjang Belanja</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+	<ng-container *ngIf="TransaksiDataDetail==null; then load; else noload"></ng-container>
+
+	<ng-template #load>
+		<ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+    </ng-template>
+
+    <ng-template #noload>
+
+    	<ng-container *ngIf="TransaksiDataDetail==99; then notrxdet; else trxdet"></ng-container>
+
+    	<ng-template #notrxdet>
+			<img style="padding: 20px 10px;" src="assets/empty.svg" height="200" width="100%" />
+			<ion-card-content style="text-align: center;">
+				Keranjang belanjaan kamu masih kosong..
+			</ion-card-content>
+			<ion-card-content style="text-align: center;padding: 0px 30px;">
+				<ion-button nocaps expand="block" mode="ios" (click)="tohome()">Mulai Belanja</ion-button>
+			</ion-card-content>
+    	</ng-template>
+
+    	<ng-template #trxdet>
+
+    		<ion-card style="font-family: 'Ubuntu'; margin: 8px 0px;" *ngFor="let transaksi of TransaksiDataDetail">
+			  <ion-item>
+			    <img class="gmbarmmber" height="60" width="75" src="https://meterai.posindonesia.co.id/image/produk/{{ transaksi.trxd_catalog_id }}.jpg" />
+			    <ion-label>
+			    	<span style="white-space: pre-wrap !important; text-align: justify; font-size: 15px;">{{ transaksi.catalog_desc }}</span>
+			    	<p style="font-size: 12px;">{{transaksi.catalog_price | currency:"IDR":'Rp ':"1.0" }}</p>
+			    	<p style="font-size: 12px;">Jumlah Produk : {{ transaksi.trxd_qty }} {{ transaksi.catalog_satuan }}</p>
+			    </ion-label>
+			  </ion-item>
+			  <ion-item center lines="none">
+				<ion-label margin >
+					<span style="white-space: pre-wrap !important; text-align: justify; font-size: 13px;">
+						Harga : {{transaksi.trxd_price | currency:"IDR":'Rp ':"1.0" }}
+					</span>
+				</ion-label>
+				<ion-icon iconqty src="assets/edit.svg" (click)="ubahqty(transaksi.trxd_id, transaksi.trxd_catalog_id, transaksi.member_username, transaksi.catalog_desc, transaksi.trxd_qty, minqty)"></ion-icon>
+				<ion-icon iconqty src="assets/trash.svg" (click)="hapusproduk(transaksi.trxd_id, transaksi.trxd_catalog_id, transaksi.catalog_desc)"></ion-icon>
+			  </ion-item>
+			</ion-card>
+
+    	</ng-template>
+
+	</ng-template>
+
+</ion-content>
+
+<ng-container *ngIf="TransaksiDataDetail==null; then load2; else noload2"></ng-container>
+
+<ng-template #load2>
+	
+</ng-template>
+
+<ng-template #noload2>
+
+	<ng-container *ngIf="TransaksiDataDetail==99; then notrxdet2; else trxdet2"></ng-container>
+
+	<ng-template #notrxdet2>
+
+	</ng-template>
+
+	<ng-template #trxdet2>
+		<ion-footer>
+			<ion-card style="font-family: 'Ubuntu'; margin: 0px 0px;" >
+			  <ion-item center lines="none">
+			  	<!-- <div class="css-h6es49">
+			  		<div class="css-1j4pkxq">Total Harga</div>
+			  		<div class="css-glet8q" data-cy="cartTotalPrice">Rp14.972.000</div>
+			  	</div> -->
+				<ion-label margin >
+					<div style="color: #838994; font-size: 12px; padding-bottom: 5px;">
+						Total Harga
+					</div>
+					<div style="white-space: pre-wrap !important; text-align: justify; font-size: 18px;">
+						<b>{{Totalharga | currency:"IDR":'Rp ':"1.0" }}</b>
+					</div>
+				</ion-label>
+				<ion-button nocaps color="primary" (click)="proses()" size="medium" mode="ios">
+					<span style="padding: 0px 5px;" >Proses ({{Totalproduk}})</span>
+				</ion-button>
+			  </ion-item>
+			</ion-card>
+		</ion-footer>
+	</ng-template>
+	
+</ng-template>

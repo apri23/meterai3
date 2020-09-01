@@ -1,0 +1,396 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start">
+    	<ion-icon name="arrow-back-outline" style="margin-left: 10px;" (click)="back_keranjang()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun">Pengiriman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+	<ng-container *ngIf="_receiver==null; then loadreceiver; else receiver"></ng-container>
+
+	<ng-template #loadreceiver>
+		<ion-card style="margin: 10px 0px;">
+	        <ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+	          <ion-card-title style="font-size: 14px;" color="primary"><b>Alamat Pengiriman</b>
+	          	<!-- <ion-icon (click)="pop_alamat()" name="alert-circle-outline" style="float: right;"></ion-icon> -->
+	          </ion-card-title>
+	        </ion-card-header>
+	        <div style="border-bottom: 1px solid #02275d"></div>
+	        <ion-card-header>
+	          <ion-card-subtitle><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></ion-card-subtitle>
+	        </ion-card-header>
+	        <ion-card-content>
+	        	<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+	        	<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%"></ion-skeleton-text><br>
+				<ion-skeleton-text animated style="width: 80%;margin: 10px;"></ion-skeleton-text>
+	        </ion-card-content>
+	    </ion-card>
+	</ng-template>
+
+	<ng-template #receiver>
+		<ion-card style="margin: 10px 0px;">
+	        <ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+	          <ion-card-title style="font-size: 14px;" color="primary"><b>Alamat Pengiriman</b>
+	          	<!-- <ion-icon (click)="pop_alamat()" name="alert-circle-outline" style="float: right;"></ion-icon> -->
+	          </ion-card-title>
+	        </ion-card-header>
+	        <div style="border-bottom: 1px solid #02275d"></div>
+	        <ion-card-header>
+	          <ion-card-subtitle>{{_receiver.nama}} ({{_receiver.telpon}})</ion-card-subtitle>
+	        </ion-card-header>
+	        <ion-card-content>
+	          {{_receiver.alamat}} {{_receiver.kelurahan}} {{_receiver.kecamatan}} {{_receiver.kota}} {{_receiver.provinsi}} {{_receiver.kodepos}}
+	          <ion-button nocaps expand="block" mode="ios" fill="outline" size="medium" (click)="ubahalamat()">Ubah Alamat</ion-button>
+	        </ion-card-content>
+	    </ion-card>
+	    <ion-item lines="none">
+		    <ion-label nocaps>
+		    	<!-- <span>Kantor Pos Pengirim : <ion-icon (click)="pop_kntr_pngirim()" name="alert-circle-outline" color="primary" style="float: right;"></ion-icon></span> -->
+		    	<p style="font-size: 12px; margin-top: 10px;">{{_receiver.nopend_kprk}} - {{_receiver.nama_kantor}}</p>
+		    </ion-label>
+		</ion-item>
+	</ng-template>
+
+	<ion-card style="margin: 10px 0px;">
+        <ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+          <ion-card-title style="font-size: 14px;" color="primary"><b>Layanan Pengiriman</b>
+          	<!-- <ion-icon (click)="pop_layanan()" name="alert-circle-outline" style="float: right;"></ion-icon> -->
+          </ion-card-title>
+        </ion-card-header>
+        <div style="border-bottom: 1px solid #02275d"></div>
+
+		<ng-container *ngIf="_layanan_kirim==11; then load; else dt_lyanan"></ng-container>
+
+		<ng-template #load>
+			<ion-card-header>
+	          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+	        </ion-card-header>
+	        <ion-card-header>
+	          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+	        </ion-card-header>
+		</ng-template>
+
+		<ng-template #dt_lyanan>
+
+			<ng-container *ngIf="_layanan_kirim==null; then null; else dt_lyanan2"></ng-container>
+
+			<ng-template #null>
+				<ion-card-header>
+		          <ion-card-subtitle>Maaf! Layanan kiriman tidak di temukan. Periksa kembali Kode Pos pada alamat pengiriman.</ion-card-subtitle>
+		        </ion-card-header>
+		    </ng-template>
+
+		    <ng-template #dt_lyanan2>
+
+		    	<ng-container *ngIf="_layanan_kirim==22; then free_ongkir; else dt_lyanan_real"></ng-container>
+
+		    	<ng-template #free_ongkir>
+		    		<ion-card-header>
+			          <ion-card-subtitle>Anda bebas dari biaya layanan pengiriman.</ion-card-subtitle>
+			        </ion-card-header>
+		    	</ng-template>
+
+		    	<ng-template #dt_lyanan_real>
+
+		    		<ng-container *ngIf="_layanan_kirim==00; then layanan_use; else pilih_layanan"></ng-container>
+
+		    		<ng-template #layanan_use>
+		    			<ion-item>
+				          <ion-label border>
+				            <h4>{{_dt_layanan_use.layanan}}</h4>
+				           	<p style="font-size: 12px;">Estimasi pengiriman {{_dt_layanan_use.estimasi}}</p>
+				          </ion-label>
+				          <ion-button slot="end" nocaps2 expand="block" color="primary" fill="clear" (click)="delete_layanan()"><ion-icon src="assets/trash.svg"></ion-icon></ion-button>
+				        </ion-item>
+		    		</ng-template>
+
+		    		<ng-template #pilih_layanan>
+
+		    			<ion-item>
+						  <ion-label label >Pilih layanan pengiriman</ion-label>
+						  <ion-select [interfaceOptions]="customOptionslayanan" cancelText="Tutup" interface="action-sheet" [(ngModel)]="_layanan_val" (ionChange)="use_layanan_kirim(event)">
+						  <!-- <ion-select [interfaceOptions]="customOptionslayanan" interface="action-sheet"> -->
+						    <ion-select-option *ngFor="let layanan_kirim of filterlayanankirim(_layanan_kirim)" value="{{layanan_kirim.serviceName}}~{{layanan_kirim.estimation}}~{{layanan_kirim.fee}}~{{layanan_kirim.feeTax}}~{{layanan_kirim.insurance}}~{{layanan_kirim.insuranceTax}}~{{layanan_kirim.totalFee}}">
+						    	{{layanan_kirim.serviceName}}
+						    </ion-select-option>
+						  </ion-select>
+						</ion-item>
+		    			
+		    		</ng-template>
+
+					<ng-container *ngIf="_show_asuransi==true; then show; else noshow"></ng-container>
+
+					<ng-template #show>
+						<ion-item>
+				            <ion-label label>Gunakan Asuransi paket</ion-label>
+				            <ion-checkbox style="margin-top: 3px; margin-bottom: 3px;" color="primary" [(ngModel)]="_asuransi_checkbox" (ionChange)="asuransi_use()" slot="start"></ion-checkbox>
+				        </ion-item>
+				        <p style="font-size: 11px; margin: 7px 16px;">Disarankan agar menggunakan asuransi untuk melindungi paket anda.</p>
+				    </ng-template>
+		    	</ng-template>
+
+		    </ng-template>
+		</ng-template>
+    </ion-card>
+
+	<ng-container *ngIf="_produk==null; then loadproduk; else produk"></ng-container>
+
+	<ng-template #loadproduk>
+		<ion-card style="margin: 10px 0px;" >
+			<ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+	          <ion-card-title style="font-size: 14px;"><b>Produk Deskripsi</b></ion-card-title>
+	        </ion-card-header>
+	        <div style="border-bottom: 1px solid #02275d"></div>
+			<ion-item *ngFor="let transaksidummy of [1,2]">
+				<ion-thumbnail slot="start">
+					<ion-skeleton-text animated></ion-skeleton-text>
+				</ion-thumbnail>
+				<ion-label>
+					<span><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></span>
+					<p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></p>
+					<p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+				</ion-label>
+			</ion-item>
+			<ion-item center lines="none">
+				<ion-label margin >
+					<span>
+						<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+					</span>
+				</ion-label>
+			</ion-item>
+		</ion-card>
+	</ng-template>
+
+	<ng-template #produk>
+		<ion-card style="margin: 10px 0px;" >
+			<ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+	          <ion-card-title style="font-size: 14px;" color="primary"><b>Produk Deskripsi</b>
+	          	<!-- <ion-icon (click)="pop_prod_desc()" name="alert-circle-outline" style="float: right;"></ion-icon> -->
+	          </ion-card-title>
+	        </ion-card-header>
+	        <div style="border-bottom: 1px solid #02275d"></div>
+	        <ion-item *ngFor="let transaksi of _produk">
+				<img class="gmbarmmber" width="70" src="https://meterai.posindonesia.co.id/image/produk/{{ transaksi.trxd_catalog_id }}.jpg" />
+				<ion-label>
+					<span style="white-space: pre-wrap !important; text-align: justify; font-size: 15px;">{{ transaksi.catalog_desc }}</span>
+					<p style="font-size: 12px;">{{transaksi.catalog_price | currency:"IDR":'Rp ':"1.0" }}</p>
+					<p style="font-size: 12px;">Jumlah Produk : {{ transaksi.trxd_qty }} {{ transaksi.catalog_satuan }}</p>
+				</ion-label>
+			</ion-item>
+			<ion-item center lines="none">
+				<ion-label margin >
+					<span style="white-space: pre-wrap !important; text-align: justify; font-size: 13px;">
+						Sub Total <span style="float: right;"><b>{{_totalhargaproduk | currency:"IDR":'Rp ':"1.0" }}</b></span>
+					</span>
+				</ion-label>
+			</ion-item>
+	    </ion-card>
+	</ng-template>
+
+	<ion-card style="margin: 10px 0px;">
+        <ion-card-header style="padding: 13px 13px; background-color: var(--ion-color-light);">
+          <ion-card-title style="font-size: 14px;" color="primary"><b>Pakai Promo</b></ion-card-title>
+        </ion-card-header>
+        <div style="border-bottom: 1px solid #02275d"></div>
+
+        <ng-container *ngIf="_promo==null; then nopromo; else promo"></ng-container>
+
+        <ng-template #promo>
+
+        	<ng-container *ngIf="_promo==11; then load; else dtpromo"></ng-container>
+
+        	<ng-template #dtpromo>
+
+        		<ng-container *ngIf="_promo==21; then promoterpakai; else pilih_promo"></ng-container>
+
+        		<ng-template #promoterpakai>
+					<ion-item>
+			          <ion-label border>
+			            <h4>{{_dt_promo_use.promo_desc}}</h4>
+			            <ng-container *ngIf="_dt_promo_use.promo_persen_value==0; then promovalue; else promopersen"></ng-container>
+			            <ng-template #promovalue>
+			            	<p style="font-size: 12px;">Kamu dapat potongan {{_dt_promo_use.promo_amount_value | currency:"IDR":'Rp ':"1.0" }}</p>
+			            </ng-template>
+			            <ng-template #promopersen>
+			            	<p style="font-size: 12px;">Kamu dapat potongan {{_dt_promo_use.promo_persen_value}}%</p>
+			            </ng-template>
+			          </ion-label>
+			          <ion-button slot="end" nocaps2 expand="block" color="primary" fill="clear" (click)="delete_promo()"><ion-icon src="assets/trash.svg"></ion-icon></ion-button>
+			        </ion-item>
+        		</ng-template>
+
+        		<ng-template #pilih_promo>
+					<ion-item>
+					  <ion-label label >Pilih promo tersedia</ion-label>
+					  <ion-select [interfaceOptions]="customOptionsprov" interface="action-sheet" cancelText="Tutup" [(ngModel)]="_promo_val" (ionChange)="use_promo(event)">
+					    <ion-select-option *ngFor="let promo of _promo" value="{{promo.promo_id}}">
+					    	{{promo.promo_desc}}
+					    </ion-select-option>
+					  </ion-select>
+					</ion-item>
+				</ng-template>
+	    	</ng-template>
+
+	    	<ng-template #load>
+	    		<ion-card-header>
+		          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+		        </ion-card-header>
+	    	</ng-template>
+    	</ng-template>
+
+    	<ng-template #nopromo>
+    		<ion-card-header>
+	          <ion-card-subtitle>Promo belum tersedia</ion-card-subtitle>
+	        </ion-card-header>
+    	</ng-template>
+    </ion-card>
+
+    <ion-card style="margin: 10px 0px;">
+
+    	<ng-container *ngIf="_pointreward==null; then nopointrewards; else pointrewards"></ng-container>
+
+    	<ng-template #nopointrewards>
+    		<ion-card-header>
+	          <ion-card-subtitle>Point belum tersedia</ion-card-subtitle>
+	        </ion-card-header>
+    	</ng-template>
+
+    	<ng-template #pointrewards>
+
+    		<ng-container *ngIf="_pointreward==11; then loadpointrewards; else dtpointrewards"></ng-container>
+
+    		<ng-template #loadpointrewards>
+	    		<ion-card-header>
+		          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+		        </ion-card-header>
+	    	</ng-template>
+
+	    	<ng-template #dtpointrewards>
+	    		<ion-item style="--background: var(--ion-color-light);">
+				    <ion-label nocaps>
+				    	<span style="">Gunakan Point </span>
+				    	<span style="color: rgb(115, 115, 115); font-size: 12px;">(Point kamu saat ini <b>{{_point.member_point | currency:"IDR":'':"1.0" }}</b>)</span>
+				    </ion-label>
+				    <ion-toggle [(ngModel)]="_point_toggle" (ionChange)="toggle_point_use()"></ion-toggle>
+				</ion-item>
+			</ng-template>
+    	</ng-template>
+
+    </ion-card>
+
+    <ion-item>
+	    <ion-label nocaps>
+	    	<span style="font-size: 14px;">Ringkasan pesanan</span>
+
+	    	<ng-container *ngIf="_ringkasan_pesanan_1==11; then load_ringkasan_pesanan_1; else ringkasan_pesanan_1"></ng-container>
+
+	    	<ng-template #load_ringkasan_pesanan_1>
+	    		<p style="font-size: 12px; margin-top: 12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+	    		<p style="font-size: 12px; margin-top: 12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+	    		<p style="font-size: 12px; margin-top: 12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_pesanan_1>
+	    		<p style="font-size: 12px; margin-top: 12px;">Jumlah Produk <span style="float: right;">{{_ringkasan_jmlproduk}}</span></p>
+		    	<p style="font-size: 12px; margin-top: 7px;">Total Berat (termasuk pengemasan) <span style="float: right;">{{_ringkasan_jmlberat}} gram</span></p>
+		    	<p style="font-size: 12px; margin-top: 7px;">Total Harga <span style="float: right;">{{_ringkasan_jmlprice | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    	</ng-template>
+
+	    	<ng-container *ngIf="_ringkasan_ongkir==22; then load_ringkasan_ongkir; else ringkasan_ongkir"></ng-container>
+
+	    	<ng-template #load_ringkasan_ongkir>
+	    		
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_ongkir>
+	    		<p style="font-size: 12px; margin-top: 7px;">Ongkos Kirim <span style="float: right;">{{_ringkasan_total_tarif | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    		<!-- <p style="font-size: 12px; margin-top: 7px;">Ongkos Kirim <span style="float: right;">{{_ringkasan_trx_total_tarif | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    		<p style="font-size: 12px; margin-top: 7px;">Pajak Ongkos Kirim <span style="float: right;">{{_ringkasan_trx_total_tax | currency:"IDR":'Rp. ':"1.0" }}</span></p> -->
+	    	</ng-template>
+
+	    	<ng-container *ngIf="_ringkasan_asuransi==22; then load_ringkasan_asuransi; else ringkasan_asuransi"></ng-container>
+
+	    	<ng-template #load_ringkasan_asuransi>
+	    		
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_asuransi>
+	    		<p style="font-size: 12px; margin-top: 7px;">Asuransi <span style="float: right;">{{_ringkasan_total_asuransi | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    		<!-- <p style="font-size: 12px; margin-top: 7px;">Asuransi <span style="float: right;">{{_ringkasan_trx_insurance | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    		<p style="font-size: 12px; margin-top: 7px;">Pajak Asuransi <span style="float: right;">{{_ringkasan_trx_insuranceTax | currency:"IDR":'Rp. ':"1.0" }}</span></p> -->
+	    	</ng-template>
+
+	    	<ng-container *ngIf="_ringkasan_diskon_produk==22; then load_ringkasan_diskon_produk; else ringkasan_diskon_produk"></ng-container>
+
+	    	<ng-template #load_ringkasan_diskon_produk>
+	    		
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_diskon_produk>
+	    		<p style="font-size: 12px; margin-top: 7px;">Diskon Produk<span style="float: right;">- {{_ringkasan_diskon_produk | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    	</ng-template>
+
+	    	<ng-container *ngIf="_ringkasan_promo==22; then load_ringkasan_promo; else ringkasan_promo"></ng-container>
+
+	    	<ng-template #load_ringkasan_promo>
+	    		
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_promo>
+	    		<p style="font-size: 12px; margin-top: 7px;">Promo<span style="float: right;">- {{_ringkasan_promo | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    	</ng-template>
+
+	    	<ng-container *ngIf="_ringkasan_point==22; then load_ringkasan_point; else ringkasan_point"></ng-container>
+
+	    	<ng-template #load_ringkasan_point>
+	    		
+	    	</ng-template>
+
+	    	<ng-template #ringkasan_point>
+	    		<p style="font-size: 12px; margin-top: 7px;">Poin di gunakan<span style="float: right;">- {{_ringkasan_point | currency:"IDR":'Rp. ':"1.0" }}</span></p>
+	    	</ng-template>
+
+	    </ion-label>
+	</ion-item>
+
+	<ion-card style="font-family: 'Ubuntu'; margin: 0px 0px; padding-bottom: 10px;" >
+	  <ion-item center lines="none">
+		<ion-label margin >
+			<div style="color: #838994; font-size: 12px; padding-bottom: 5px;">
+				Grand Total Harga
+			</div>
+			<div style="white-space: pre-wrap !important; text-align: justify; font-size: 18px;">
+				<b>{{_grand_total_harga | currency:"IDR":'Rp ':"1.0" }}</b>
+			</div>
+		</ion-label>
+		<ion-button nocaps color="primary" size="medium" (click)="proses()">
+			<span style="padding: 0px 5px;" >ORDER</span>
+		</ion-button>
+	  </ion-item>
+	</ion-card>
+
+    
+
+    
+
+    <!-- <ion-card style="margin: 10px 0px;">
+        <ion-card-header>
+          <ion-card-title style="font-size: 16px;">Ringkasan Belanja</ion-card-title>
+        </ion-card-header>
+        <div style="border-bottom: 1px solid #02275d"></div>
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+        </ion-card-content>
+    </ion-card> -->
+
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start">
+    	<ion-icon name="arrow-back-outline" style="margin-left: 10px;" (click)="back_tabs1()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun">Detail Produk</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+	<ng-container
+	*ngIf="Produk==null; then produkload; else produknoload">
+	</ng-container>
+
+	<ng-template #produknoload>
+		<ion-grid style="padding: 0px; margin-bottom: 15px;">
+		  <ion-row>
+		    <ion-col size="12" style="padding: 0px;">
+		        <ion-img class="imgproduk" src="https://meterai.posindonesia.co.id/image/produk/{{ Produk.cat_id }}.jpg?{{date}}" > </ion-img>
+		    </ion-col>
+		    <ion-col size="11" class="detail">
+		        <ion-card-subtitle style="font-family: 'Ubuntu'; font-size: 13px;">{{ Produk.c_subgroup }}</ion-card-subtitle>
+		        <ion-card-title style="font-family: 'Ubuntu'; font-size: 20px; margin-top: 10px;"><b>{{ Produk.catalog_desc }}</b></ion-card-title>
+		        <ion-card-content style="padding: 0px; padding-top: 14px;"><b>{{Produk.catalog_price | currency:"IDR":'Rp ':"1.0" }}</b></ion-card-content>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+		<ion-item style="height: 30px; padding-bottom: 10px;" lines="none">
+		  <ion-label margin >Min. Pesanan</ion-label>
+		  <ion-note font slot="end">{{minqty}}</ion-note>
+		</ion-item>
+		<ion-item style="height: 30px; padding-bottom: 10px;" lines="none">
+		  <ion-label margin >Satuan</ion-label>
+		  <ion-note font slot="end">{{Produk.catalog_satuan}}</ion-note>
+		</ion-item>
+		<ion-item style="height: 30px;" lines="none">
+		  <ion-label margin >Berat</ion-label>
+		  <ion-note font slot="end">{{Produk.catalog_weight}} gram</ion-note>
+		</ion-item>
+		<ion-item lines="none">
+		  <ion-label margin >Jumlah</ion-label>
+		  <ion-note font slot="end">&nbsp;</ion-note>
+		</ion-item>
+		<ion-item center lines="none">
+			<ion-input min="5" [(ngModel)]="qtyok" qty class="ion-text-center" type="number" (ionChange)="cek_qty()"></ion-input>
+		</ion-item>
+
+		<!-- <ion-item center lines="none">
+			<ion-label margin >
+				
+			</ion-label>
+			<ion-button size="small" (click)="decrement()" mode="ios"><ion-icon style="margin: 0px 0px;" name="remove-sharp"></ion-icon></ion-button>
+			<ion-icon iconqty src="assets/less.svg" (click)="decrement()"></ion-icon>
+		  		<span qty >{{qtynumber}}</span>
+		  	<ion-button size="small" (click)="increment()" mode="ios"><ion-icon style="margin: 0px 0px;" name="add-outline"></ion-icon></ion-button>
+			<ion-icon iconqty src="assets/plus.svg" (click)="increment()"></ion-icon>
+			<ion-label margin >
+				
+			</ion-label>
+		</ion-item> -->
+	</ng-template>
+
+	<ng-template #produkload>
+		<ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+	</ng-template>
+</ion-content>
+
+<ion-footer>
+	<!-- <ion-grid> -->
+        <ion-row style="background-color: var(--ion-color-light);">
+          <ion-col>
+            <ion-button [disabled]="!canadd" nocaps expand="block" mode="ios" fill="outline" (click)="aksibeli()">Beli</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button [disabled]="!canadd" nocaps expand="block" mode="ios" (click)="aksitambahkeranjang()">Tambah Ke Keranjang</ion-button>
+          </ion-col>
+        </ion-row>
+    <!-- </ion-grid> -->
+</ion-footer>

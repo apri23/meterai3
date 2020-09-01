@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >Jenis Pelanggan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding" scroll-y="false">
+
+	 <ion-slides pager="true">
+
+        <ion-slide>
+        	<ng-container *ngIf="jenis==0; then nofree1; else free1"></ng-container>
+	          <ng-template #nofree1>
+                 <h5>Saat Ini</h5>
+	          </ng-template>
+	          <ng-template #free1>
+              <h5 style="color: var(--ion-color-light);">-</h5>
+	          </ng-template>
+            <img style="height: 120px; display: block; margin-left: auto; margin-right: auto;" src="assets/reg.svg" />
+            <h2>REGULER</h2>
+            <p>Pemilik akun yang memiliki akses untuk melakukan pembelian Benda Meterai dengan fasilitas <b>pengiriman berbayar</b> sesuai dengan layanan yang dipilihnya.</p>
+        </ion-slide>
+
+        <ion-slide>
+        	<ng-container *ngIf="jenis==1; then free; else nofree"></ng-container>
+	          <ng-template #free>
+	             <h5>Saat Ini</h5>
+            </ng-template>
+            <ng-template #nofree>
+              <h5 style="color: var(--ion-color-light);">-</h5>
+	          </ng-template>
+          <img style="height: 120px; display: block; margin-left: auto; margin-right: auto;" src="assets/khus.svg" />
+          <h2>KHUSUS</h2>
+          <p>Pemilik akun yang memiliki akses untuk melakukan pembeliaan Benda Meterai, <b>tidak dipungut biaya pengiriman</b> dengan layanan pengiriman ditentukan oleh Kantorpos Kirim.</p>
+        </ion-slide>
+
+      </ion-slides>
+
+</ion-content>

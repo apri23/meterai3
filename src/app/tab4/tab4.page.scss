@@ -1,0 +1,43 @@
+
+.tol {
+  --background: var(--ion-color-primary);
+  color: var(--ion-color-light);
+}
+
+.titleakun{
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.gmbarmmber{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 15px;
+	margin-left: 0px;
+	border: 1px solid;
+	border-color: #fff;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+}
+
+[margin]{
+	margin: 0px;
+	font-size: 13px;
+}
+
+[qty]{
+	width: 20%;
+	min-width: 20px;
+	border-bottom: 1px solid #E0E0E0;
+	text-align: center;
+}
+
+[iconqty]{
+	margin: 0px 10px;
+}
+
+[nocaps]{
+	text-transform: none;
+	font-size: 13px;
+}

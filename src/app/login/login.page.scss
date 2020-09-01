@@ -1,0 +1,172 @@
+
+.tol {
+  --background: var(--ion-color-tertiary);
+  color: var(--ion-color-light);
+}
+
+.tol2 {
+  --background: #F9F8FF;
+}
+
+[daftar]{
+	font-size: 14px;
+	color: var(--ion-color-light);
+	margin-right: 20px;
+}
+
+.spandaftar {
+	color: var(--ion-color-tertiary);
+}
+
+.login-header {
+	position: relative;
+	background: #e67016;
+	border-radius: 0px;
+	height: 100px;
+	max-height: 100px;
+	padding-top: 5px;
+}
+
+.gbrmtr{
+	position: relative;
+	background: #F9F8FF;
+	border-radius: 0px;
+	height: 150px;
+	max-height: 150px;
+	min-height: 150px;
+	padding-top: 5px;
+}
+
+.login-header:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 15%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #e67016;
+	border-bottom: 0;
+	margin-left: -15px;
+	margin-bottom: -15px;
+}
+
+.logo-img {
+	display: block;
+	width: 200px;
+	margin: 20px auto;
+	text-align: center;
+}
+
+[heading-colum-rl] {
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+[heading1] {
+	font-size: 30px !important;
+	color: #000;
+}
+
+[heading2] {
+	margin-left: auto;
+	padding-right: 40px;
+	font-size: 15px;
+}
+
+[label]{
+	color: #000;
+	opacity: .8;
+	font-size: 13px;
+	display: block;
+}
+
+[labelbot]{
+	color: #000;
+	opacity: .8;
+	font-size: 13px;
+	display: block;
+}
+
+.iontextcenterbot{
+	text-align: center;
+	color: #000;
+}
+
+[transparent]{
+	--background: transparent;
+}
+
+[ioninput]{
+	--color: #000;
+	--padding-bottom: 15px;
+	--padding-top: 15px;
+	--padding-start: 5px;
+	font-size: 15px;
+	text-indent: 1px;
+	padding-left: 10px !important;
+	font-family: 'Ubuntu' !important;
+}
+
+[icon-small]{
+	width: 25px;
+}
+
+ion-item{
+	--highlight-height:0;
+	--highlight-color-invalid:#000;
+	--highlight-color-valid:#fff;
+	--min-height: 55px;
+	--padding-start:0;
+}
+
+[linespace]{
+	height: 20px;
+}
+
+.iontextcenter{
+	text-align: center;
+	color: #888888;
+	padding-top: 10px;
+}
+
+.forgetpassword{
+	text-align: right;
+	padding: 10px;
+	color: var(--ion-color-tertiary);
+}
+
+.center{
+	margin: 55px 20px;
+}
+
+.css-11 {
+	font-size: 0.857rem;
+    margin: 18px 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #888888;
+}
+
+.css-2{
+	text-align: center;
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+.css-1 {
+	display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid #888888;
+}
+
+[matadewa]{
+	padding-top: 17px; 
+}

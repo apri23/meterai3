@@ -1,0 +1,606 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleonback titleakun">{{__header}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ng-container *ngIf="__id==1; then no1; else no"></ng-container>
+	<ng-template #no1>
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BeaMeterai1.png">
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BeaMeterai2.png">
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BeaMeterai3.png">
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BeaMeterai4.png">
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BeaMeterai5.png">
+	</ng-template>
+
+	<ng-container *ngIf="__id==2; then no2; else no"></ng-container>
+	<ng-template #no2>
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/TarifBeaMeterai1.png">
+	</ng-template>
+
+	<ng-container *ngIf="__id==3; then no3; else no"></ng-container>
+	<ng-template #no3>
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/BentukBendaMeterai1.png">
+	</ng-template>
+
+	<ng-container *ngIf="__id==4; then no4; else no"></ng-container>
+	<ng-template #no4>
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/SanksiBendaMeterai1.png">
+	</ng-template>
+
+	<ng-container *ngIf="__id==5; then no5; else no"></ng-container>
+	<ng-template #no5>
+		<img class="img-slide" src="https://meterai.posindonesia.co.id/assets/images/category/CiriMeteraiAsli1.png">
+	</ng-template>
+
+	<ng-container *ngIf="__id==6; then no6; else no"></ng-container>
+	<ng-template #no6>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-item-group>
+			  <ion-item >
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Divisi Jaringan Layanan dan Konsinyasi Filateli merupakan salah satu Unit Organisasi di bawah Direktorat Jaringan dan Layanan Keuangan PT Pos Indonesia (Persero) yang mengelola bisnis benda meterai dan benda konsinyasi lainnya.</ion-label>
+			  </ion-item>
+			</ion-item-group>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==7; then no7; else no"></ng-container>
+	<ng-template #no7>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-item-group >
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Kami melalui 205 outlet Kantorpos yang tersebar di seluruh Indonesia berusaha untuk memenuhi pemesanan benda meterai dengan ketentuan pengiriman sebagai berikut :</ion-label>
+			  </ion-item>
+			</ion-item-group>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px; margin-top: 10px">
+			  <ion-row>
+			    <ion-col size="1" nomor>1. </ion-col>
+			    <ion-col size="11" descr>Pengiriman dilakukan oleh Kantorpos Pusat terdekat dengan Alamat Kirim.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>2. </ion-col>
+			    <ion-col size="11" descr>Pengiriman dilakukan setelah Pembeli melakukan pembayaran secara penuh.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>3. </ion-col>
+			    <ion-col size="11" descr>Pesanan akan dikirimkan ke Alamat Kirim yang dicantumkan dalam data pemesanan.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>4. </ion-col>
+			    <ion-col size="11" descr>Apabila persediaan Benda Meterai di Kantorpos yang dipilih oleh Pembeli tidak mencukupi, maka pengriman akan dilakukan oleh Kantorpos lain yang lokasinya dekat dengan Alamat Kirim.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>5. </ion-col>
+			    <ion-col size="11" descr>Pengiriman dilakukan oleh Kantorpos pada hari kerja (Senin – Sabtu) pada pukul 08.00 – 15.00 waktu setempat.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>6. </ion-col>
+			    <ion-col size="11" descr>Tidak ada pengiriman di hari Minggu dan Libur Nasional.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>7. </ion-col>
+			    <ion-col size="11" descr>Pemesanan setelah pukul 15.00 wib akan diproses pada hari kerja berikutnya.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>8. </ion-col>
+			    <ion-col size="11" descr>Layanan pengiriman yang Kami sediakan yaitu Layanan Pos Kilat Khusus dan Pos Express. Status kiriman dapat dilacak di HaloPos 161.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>9. </ion-col>
+			    <ion-col size="11" descr>Kami tidak akan memberikan ganti rugi apabila Pesanan terlambat diterima dikarenakan kesalahan yang disebabkan oleh Alamat Kirim yang tidak benar atau karena kesalahan pencantuman Alamat Kirim oleh Pembeli.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>10. </ion-col>
+			    <ion-col size="11" descr>Pembeli menyetujui bahwa setiap masalah pengiriman Pesanan yang disebabkan keterlambatan dan kekurangan pembayaran adalah merupakan tanggung jawab Pembeli.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>11. </ion-col>
+			    <ion-col size="11" descr>Pembeli menyetujui bahwa setiap masalah pengiriman Pesanan yang disebabkan keterlambatan pembayaran adalah merupakan tanggung jawab Pembeli.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>12. </ion-col>
+			    <ion-col size="11" descr>Pembeli yang mendapatkan fasilitas free ongkos kirim dibebaskan dari biaya ongkos kirim.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>13. </ion-col>
+			    <ion-col size="11" descr>Perlu diketahui bahwa dimungkinkan Kami tidak berhasil mengirimkan Pesanan ke Alamat Kirim. Dalam kondisi tersebut Kami akan memberikan informasi kepada Pembeli dengan menggunakan rincian kontak pada Akun Pembeli untuk mengatur pengiriman ke alternatif alamat.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>14. </ion-col>
+			    <ion-col size="11" descr> Biaya pengiriman ulang ke alternatif alamat sebagaimana dijelaskan pada poin (16) akan dibebankan kepada Pembeli.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>15. </ion-col>
+			    <ion-col size="11" descr>Kami akan mengirimkan Pesanan dalam kemasan sesuai dengan standar pengemasan yang berlaku di Kami.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>16. </ion-col>
+			    <ion-col size="11" descr>Apabila Pembeli atau penerima yang ditunjuk oleh Pembeli tidak ada atau tidak bisa menerima pengiriman Pesanan, maka akan dilakukan pengiriman ulang sesuai dengan ketentuan yang berlaku di Pos Indonesia.</ion-col>
+			  </ion-row>
+			</ion-grid>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==8; then no8; else no"></ng-container>
+	<ng-template #no8>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px; margin-top: 10px">
+			  <ion-row>
+			    <ion-col size="1" nomor>1. </ion-col>
+			    <ion-col size="11" descr>Kami menyediakan Benda Meterai Asli desain Tahun 2014 yang dicetak oleh Perum PERURI.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>2. </ion-col>
+			    <ion-col size="11" descr>Untuk menjamin kepastian informasi yang terdapat di situs ini, Anda dapat menanyakan langsung kepada kami melalui Hubungi Kami.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>3. </ion-col>
+			    <ion-col size="11" descr>Kami sebagai pengendali situs ini bekerja sama dengan pihak lain yang terlibat untuk selalu menjaga terjaminnya informasi yang ada pada situs ini. Jika terdapat informasi atau tampilan yang tidak sesuai di situs ini, maka Kami berhak untuk menghapus informasi atau tampilan tersebut.</ion-col>
+			  </ion-row>
+			</ion-grid>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==9; then no9; else no"></ng-container>
+	<ng-template #no9>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-item-group >
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Selamat datang dan terima kasih telah mengunakan aplikasi Meterai Mobile. Silakan membaca Syarat dan kententuan ini dengan seksama. Dengan mengakses, menelusuri dan menggunakan aplikasi, berarti Anda telah membaca, mengerti dan setuju terhadap Syarat dan Ketentuan ini. Jika Anda tidak setuju terhadap Syarat dan Ketentuan ini, Anda harus segera berhenti mengakses, menelusuri dan menggunakan Situs. Anda perlu mengunjungi halaman ini secara berkala untuk mengetahui setiap perubahan Syarat dan Ketentuan ini.</ion-label>
+			  </ion-item>
+			</ion-item-group>
+
+			<ion-item lines="none" (click)="hidenpengertian()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">PENGERTIAN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!pengertian"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="pengertian"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!pengertian">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Akun adalah akun yang Anda buat di Situs.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Alamat Kirim adalah alamat yang Anda cantumkan pada Situs sebagai alamat pengiriman Pemesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>3. </ion-col>
+				    <ion-col size="11" descr>Anda adalah setiap orang yang mengakses, menelusuri, menggunakan atau melakukan pembelian di Situs.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>4. </ion-col>
+				    <ion-col size="11" descr>Barang adalah produk asli yang ditawarkan dan dijual melalui Situs.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>5. </ion-col>
+				    <ion-col size="11" descr>Benda Meterai adalah Meterai Asli yang ditawarkan dan dijual melalui Situs.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>6. </ion-col>
+				    <ion-col size="11" descr>Hari Kerja adalah hari selain Minggu atau Hari Libur Nasional.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>7. </ion-col>
+				    <ion-col size="11" descr>Kami adalah Divisi Jaringan Pelayanan dan Konsinyasi Filateli PT Pos Indonesia (Persero).</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>8. </ion-col>
+				    <ion-col size="11" descr>Konfirmasi Pembayaran adalah email konfimasi yang Kami kirimkan kepada Anda, dan sebagai bentuk pengakuan Kami bahwa pembayaran Anda telah Kami terima.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>9. </ion-col>
+				    <ion-col size="11" descr>Konfirmasi Pesanan adalah email konfirmasi yang Kami kirimkan kepada Anda, dan sebagai bentuk pengakuan Kami bahwa data pemesanan Anda tela kami terima</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>10. </ion-col>
+				    <ion-col size="11" descr>Pembeli adalah pengguna yang memiliki Akun dan melakukan Pemesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>11. </ion-col>
+				    <ion-col size="11" descr>Pemesanan adalah pembelian dan pemesanan Barang Anda lakukan dalam Situs.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>12. </ion-col>
+				    <ion-col size="11" descr>Pesanan adalah Barang yang dibeli di situs dan telah dilakukan Konfirmasi Pembayaran.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>13. </ion-col>
+				    <ion-col size="11" descr>Situs adalah web meterai.posindonesia.co.id / situs ini.</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidenpembuatanakun()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">PEMBUATAN AKUN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!pembuatanakun"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="pembuatanakun"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!pembuatanakun">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Anda harus membuat Akun sebelum melakukan Pemesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Anda harus memberikan informasi yang sesuai dan akurat dalam pembuatan Akun.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>3. </ion-col>
+				    <ion-col size="11" descr>Anda bertanggungjawab atas semua kegiatan yang terjadi di bawah Akun Anda.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>4. </ion-col>
+				    <ion-col size="11" descr>Anda mengerti dan setuju bahwa Anda bertanggungjawab untuk menjaga kerahasiaan akses Akun Anda.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>5. </ion-col>
+				    <ion-col size="11" descr>Anda menyatakan bawa Kami tidak bertanggung jawab atas kerugian maupun kendala yang timbul atas Akun, baik yang diakibatkan oleh kelalaian Anda seperti akibat dari peminjaman atau memberikan akses Akun kepada orang lain, mengakses link atau tautan yang diberikan oleh pihak lain, memberikan atau memperlihatkan data Akun Anda kepada pihak lain, maupun hal lain yang mengakibatkan kerugian ataupun kendala pada Akun Anda.</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidenpemesanan()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">PEMESANAN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!pemesanan"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="pemesanan"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!pemesanan">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Setelah Pembeli melakukan pemesanan, Pembeli akan mendapatkan Konfirmasi Pesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Setelah Pembeli melakukan pembayaran dan pembayaran tersebut telah Kami terima, Pembeli akan mendapatkan Konfirmasi Pembayaran.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>3. </ion-col>
+				    <ion-col size="11" descr>Pada saat melakukan Pemesanan, Pembeli menyetujui bahwa Pembeli telah membaca dan menyetujui deskripsi dan harga Barang.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>4. </ion-col>
+				    <ion-col size="11" descr>Kami memiliki kewenangan sepenuhnya untuk menolak pembayaran tanpa pemberitahuan kepada Pembeli.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>5. </ion-col>
+				    <ion-col size="11" descr>Pembeli setuju untuk tidak melakukan pembatalan Pemesanan setelah Pembeli melakukan pembayaran.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>6. </ion-col>
+				    <ion-col size="11" descr>Pembeli setuju untuk tidak memberitahukan atau menyerahkan bukti pembayaran dan/atau data pembayaran kepada pihak lain selain Kami. Dalam hal terjadi kerugian akibat penyerahan dan/atau data pembayaran oleh Pembeli kepada pihak lain, maka hal tersebut akan menjadi tanggung jawab Pembeli.</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidenhargadanpembayaran()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">HARGA DAN PEMBAYARAN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!hargadanpembayaran"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="hargadanpembayaran"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!hargadanpembayaran">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Harga yang tercantum pada Situs dan pemesanan dalam bentuk mata uang Rupiah.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Batas waktu pembayaran adalah 2 hari (48 jam) setelah Pembeli melakukan Pemesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>3. </ion-col>
+				    <ion-col size="11" descr>Jika Pembeli tidak melakukan pembayaran selama batas waktu yang diberikan, maka Kami berhak untuk membatalkan Pemesanan dimaksud tanpa pemberitahuan kepada Pembeli.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>4. </ion-col>
+				    <ion-col size="11" descr>Pembeli menyetujui untuk membayar harga Barang, ongkos kirim dan biaya admininstrasi lainnya.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>5. </ion-col>
+				    <ion-col size="11" descr>Kami tidak berkewajiban untuk memenuhi Pemesanan Pembeli jika jumlah pembayaran yang dibayarkan Pembeli tidak sesuai dengan data pemesanan.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>6. </ion-col>
+				    <ion-col size="11" descr>Kami tidak berkewajiban untuk memenuhi Pemesanan Pembeli dan berhak membatalkan Pesanan jika harga yang tercantum di Situs tidak benar atau salah (bahkan setelah Konfirmasi Pembayaran diterima oleh Pembeli). Dalam hal ini terjadi, Kami akan melakukan pengembalian dana yang telah dibayar oleh Pembeli.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>7. </ion-col>
+				    <ion-col size="11" descr>Pembeli dapat melakukan pembayaran melalui salah satu rekening Virtual Account Giropos, BTN, BCA atau Mandiri.  Pembayaran ke Virtual Account Giropos apat dilakukan di Aplikasi Pos Giro Mobile (PGM).</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>8. </ion-col>
+				    <ion-col size="11" descr>Kami dapat sewaktu-waktu menginformasikan program promosi dengan syarat dan ketentuan yang dapat berbeda-beda untuk masing-masing program promosi.</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<!-- <ion-item lines="none" (click)="hidenpengirimanpesanan()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">PENGIRIMAN PESANAN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!pengirimanpesanan"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="pengirimanpesanan"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!pengirimanpesanan">
+			    <ion-row>
+				    <ion-col size="12" descr>Kami melalui melalui 205 outlet Kantorpos yang tersebar di seluruh Indonesia akan berusaha untuk memenuhi pemesanan benda meterai dengan ketentuan pengiriman sebagai berikut :</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="12" descr>
+				    	<ion-row>
+						    <ion-col size="1" nomor>1. </ion-col>
+						    <ion-col size="11" descr>Pengiriman dilakukan oleh Kantorpos yang ditunjuk oleh Pembeli.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>2. </ion-col>
+						    <ion-col size="11" descr>Pengiriman dilakukan setelah Konfirmasi Pembayaran dan jumlah pembayaran dilakukan secara penuh oleh Pembeli.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>3. </ion-col>
+						    <ion-col size="11" descr>Pesanan akan dikirimkan ke alamat pengiriman yang dicantumkan dalam data pemesanan.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>4. </ion-col>
+						    <ion-col size="11" descr>Apabila persediaan Barang di Kantorpos yang dipilih oleh Pembeli tidak mencukupi, maka pengriman akan dilakukan oleh Kantorpos lain terdekat dekat dengan Alamat Kirim.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>5. </ion-col>
+						    <ion-col size="11" descr>Kami tidak berkewajiban untuk memenuhi Pemesanan Pembeli jika jumlah pembayaran yang dibayarkan Pembeli tidak sesuai dengan data pemesanan.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>6. </ion-col>
+						    <ion-col size="11" descr>Pengiriman dilakukan pada Hari Kerja (Senin – Sabtu) pada pukul 08.00 – 15.00 wib.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>7. </ion-col>
+						    <ion-col size="11" descr>Tidak ada pengiriman di hari Minggu dan Libur Nasional.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>8. </ion-col>
+						    <ion-col size="11" descr>Pemesanan setelah pukul 15.00 wib akan diproses pada hari kerja berikutnya.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>9. </ion-col>
+						    <ion-col size="11" descr>Layanan pengiriman yang Kami sediakan yaitu Layanan Pos Kilat Khusus dengan Estimasi Waktu Penyerahan (SWP) H+2 sampai dengan H+7 hari setelah hari pengiriman. Status kiriman dapat dilacak di sini atau HaloPos 161.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>10. </ion-col>
+						    <ion-col size="11" descr>Estimasi waktu pengiriman tersebut dapat diperbaharui dalan Konfirmasi Pengiriman.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>11. </ion-col>
+						    <ion-col size="11" descr>Kami tidak akan memberikan ganti rugi apabila Pesanan terlambat diterima dikarenakan kesalahan yang disebabkan oleh alamat yang tidak benar atau karena kesalahan pencantuman alamat oleh Pembeli.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>12. </ion-col>
+						    <ion-col size="11" descr>Pembeli memahami dan menyetujui bahwa setiap masalah pengiriman Pesanan yang disebabkan keterlambatan pembayaran adalah merupakan tanggung jawab Pembeli.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>13. </ion-col>
+						    <ion-col size="11" descr>Biaya pengiriman dibebankan kepada Pembeli sesuai dengan ketentuan tarif yang berlaku.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>14. </ion-col>
+						    <ion-col size="11" descr>Pembeli yang mendapatkan fasilitas free ongkos kirim dibebaskan dari biaya ongkos kirim.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>15. </ion-col>
+						    <ion-col size="11" descr>Pembeli akan diminta untuk menandatangani bukti pengiriman dan wajib untuk menandatangani bukti pengiriman tersebut.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>16. </ion-col>
+						    <ion-col size="11" descr>Pembeli dapat menghubungi kami di Hubungi Kami jika terjadi kesalahan, kerusakan pada Pesanan. Pembeli harus dapat menunjukkan dokumen pengiriman Pesanan yang diterima.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>17. </ion-col>
+						    <ion-col size="11" descr>Perlu diketahui bahwa dimungkinkan Kami tidak dapat atau tidak berhasil mengirimkan Pesanan ke alamat kirim. Dalam kondisi tersebut Kami akan memberikan informasi kepada Pembeli dengan menggunakan rincian kontak yang Pembeli berikan untuk mengatur pengiriman ke alternatif alamat.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>18. </ion-col>
+						    <ion-col size="11" descr>Biaya pengiriman ulang ke alternatif alamat sebagaimana dijelaskan pada poin (16) akan dibebankan kepada Pembeli.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>19. </ion-col>
+						    <ion-col size="11" descr>Kami akan mengirimkan Pesanan dalam kemasan sesuai dengan standar pengemasan yang berlaku di Kami.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>20. </ion-col>
+						    <ion-col size="11" descr>Apabila Pembeli atau penerima yang ditunjuk oleh Pembeli tidak ad</ion-col>
+						</ion-row>
+				    </ion-col>
+				</ion-row>
+			</ion-grid> -->
+
+			<ion-item lines="none" (click)="hidenpersediaanbarang()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">PERSEDIAAN BARANG
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!persediaanbarang"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="persediaanbarang"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!persediaanbarang">
+			    <ion-row>
+				    <ion-col size="12" descr>Jika suatu barang sudah tidak ada dalam persediaan Kami, maka secepatnya Kami akan mengupdate dan/atau menghapus tampilan Barang tersebut di Situs</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidenbarangrusakatauhilang()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">BARANG RUSAK ATAU HILANG
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!barangrusakatauhilang"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="barangrusakatauhilang"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!barangrusakatauhilang">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Jika Barang yang Pembeli terima rusak akibat dari proses pengiriman atau hilang, silahkan menghubungi Call Center <b>Halo POS 161</b> atau melalui email <b (click)="openhalopos()">halopos@posindonesia.co.id</b> dengan menginformasikan data Pemesanan dan nomor resi pengiriman.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Penanganan Barang rusak akibat proses pengiriman atau hilang mengikuti ketentuan yang berlaku di Pos Indonesia.</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidensebabkahar()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">SEBAB KAHAR (FORCE MAJEURE)
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!sebabkahar"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="sebabkahar"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!sebabkahar">
+				 <ion-row>
+				    <ion-col size="12" descr>Pos Indonesia tidak bertanggung jawab kepada Pembeli atas setiap hambatan, keterlambatan pengiriman Pesanan, kerusakan fisik Pesanan dan atau kehilangan Pesanan yang diakibatkan oleh oksidasi, kontaminasi polusi dan reaksi nuklir dan atau akibat force majeure, termasuk namun tidak terbatas pada :</ion-col>
+				</ion-row>
+				 <ion-row>
+				    <ion-col size="12" descr>
+				    	<ion-row>
+						    <ion-col size="1" nomor>1. </ion-col>
+						    <ion-col size="11" descr>Bencana alam (kebakaran, badai, banjir, gempa bumi, wabah atau bencana alam lainnya).</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>2. </ion-col>
+						    <ion-col size="11" descr>Pemogokan, perang, huru-hara, aksi teroris, pemberontakan, perebutan kekuasaan atau penyitaan oleh penguasa setempat.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>3. </ion-col>
+						    <ion-col size="11" descr>Ketidakmungkinan penggunaan transportasi baik publik maupun swasta.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>4. </ion-col>
+						    <ion-col size="11" descr>Keputusan undang-undang atau pembatasan dari pemerintah.</ion-col>
+						</ion-row>
+						<ion-row>
+						    <ion-col size="1" nomor>5. </ion-col>
+						    <ion-col size="11" descr>Kerusakan pada jaringan atau sistem komputer atau sistem internet pada Situs.</ion-col>
+						</ion-row>
+				    </ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item lines="none" (click)="hidenlainlain()">
+			    <ion-label style="font-size: 13px; border-left: 2px solid; padding-left: 5px;">LAIN-LAIN
+			    	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-back-sharp" *ngIf="!lainlain"></ion-icon>
+		        	<ion-icon color="danger" style="font-size: 13px; float: right;" name="chevron-down-sharp" *ngIf="lainlain"></ion-icon>
+				</ion-label>
+			</ion-item>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px;" [hidden]="!lainlain">
+			    <ion-row>
+				    <ion-col size="1" nomor>1. </ion-col>
+				    <ion-col size="11" descr>Kami berhak untuk melakukan penyesuaian konten pada Situs termasuk informasi, data dan/atau deskripsi mengenai Barang.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>2. </ion-col>
+				    <ion-col size="11" descr>Syarat dan Ketentuan ini mungkin dimodifikasi dari waktu ke waktu.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>3. </ion-col>
+				    <ion-col size="11" descr>Situs mungkin dihentikan secara sementara atau permanen oleh Kami.</ion-col>
+				</ion-row>
+				<ion-row>
+				    <ion-col size="1" nomor>4. </ion-col>
+				    <ion-col size="11" descr>Jika Anda masih memerlukan jawaban atas pertanyaan yang tidak terdapat dalam Syarat dan Ketentuan ini, Anda dapat menghubungi kami di Hubungi Kami.</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==10; then no10; else no"></ng-container>
+	<ng-template #no10>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-item-group>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Pengajuan keluhan terkait Pesanan dapat dilakukan melalui link Hubungi Kami, sedangkan untuk bantuan pelacakan pesanan yang belum sampai ataupun keluhan terkait keterlambatan pengiriman Pos, kerusakan dan kehilangan dapat menghubungi Call Center Halo Pos 161 atau melalui email <b (click)="openhalopos()">halopos@posindonesia.co.id</b>.</ion-label>
+			  </ion-item>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Anda juga dapat melakukan lacak kiriman sendiri dengan mengakses <b (click)="openpci()">www.posindonesia.co.id</b></ion-label>
+			  </ion-item>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Apabila Anda kesulitan dalam penggunaan aplikasi Posgiro Mobile dan membutuhkan bantuan, dapat menghubungi email <b (click)="opengiroposcare()">giroposcare@posindonesia.co.id</b></ion-label>
+			  </ion-item>
+			</ion-item-group>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==11; then no11; else no"></ng-container>
+	<ng-template #no11>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-item-group>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Lokasi outlet kami tersebar diseluruh indonesia dan dapat Anda akses di sini <b (click)="openpci()">www.posindonesia.co.id</b>.</ion-label>
+			  </ion-item>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; text-align: justify; line-height: 1.8;">Bagi Anda yang ingin bertanya seputar order, dapat meghubungi kami melalui :</ion-label>
+			  </ion-item>
+			  <ion-item lines="none">
+			    <ion-label style="font-size: 13px; white-space: pre-wrap !important; line-height: 1.8;">Email (Senin – Jumat | 08.00 – 16.00 wib) : <b (click)="opencsmeterai()">cs.meterai@posindonesia.co.id</b></ion-label>
+			  </ion-item>
+			</ion-item-group>
+		</ion-list>
+	</ng-template>
+
+	<ng-container *ngIf="__id==12; then no12; else no"></ng-container>
+	<ng-template #no12>
+		<ion-list>
+			<ion-list-header>
+				<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>{{__desc}}
+			</ion-list-header>
+
+			<ion-grid style="padding: 0px 16px; margin-bottom: 10px; margin-top: 10px">
+			  <ion-row>
+			    <ion-col size="1" nomor>1. </ion-col>
+			    <ion-col size="11" descr>Kami bertanggung jawab dalam melindungi data pribadi Anda dan tunduk kepada Hukum yang berlaku. Kami memiliki komitmen untuk mengelola, melindungi dan memproses data pribadi Anda sesuai dengan kebijakan ini yang akan berlaku terhadap seluruh data pribadi yang Kami peroleh dari Anda melalui Situs.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>2. </ion-col>
+			    <ion-col size="11" descr>Kami dapat menyimpan dan melakukan penghapusan informasi Akun Anda sesuai dengan ketentuan peraturan hukum yang berlaku.</ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col size="1" nomor>3. </ion-col>
+			    <ion-col size="11" descr>Kami dapat sewaktu-waktu melakukan perubahan atau pembaharuan terhadap kebijakan privasi ini. Kami menyarankan agar Anda membaca secara seksama dan memeriksa halaman Kebijakan Privasi ini dari waktu ke waktu untuk mengetahui perubahan apapaun. Dengan tetap mengakses, menelusuri dan menggunakan Situs, maka Anda dianggap menyetujui perubahan-perubahan dalam kebijakan privasi.</ion-col>
+			  </ion-row>
+			</ion-grid>
+		</ion-list>
+	</ng-template>
+
+	<ng-template #no>
+		
+	</ng-template>
+
+</ion-content>

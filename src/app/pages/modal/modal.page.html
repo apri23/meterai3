@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >{{mark_header}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	
+	<ion-card>
+	    <img src="https://meterai.posindonesia.co.id/image/slider/{{ news_id }}.jpg" />
+	    <ion-card-header>
+	      <ion-card-title style="font-size: 15px;">{{mark_caption}}</ion-card-title>
+	    </ion-card-header>
+	    <ion-card-content style="text-align: justify; font-size: 13px;" [innerHTML]="mark_description"></ion-card-content>
+	</ion-card>
+
+</ion-content>

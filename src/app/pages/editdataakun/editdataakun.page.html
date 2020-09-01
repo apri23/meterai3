@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >Ubah Data Akun</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+      <ion-list class="textcolor">
+
+      	<ion-item>
+	        <ion-label style="color: #858585;" position="stacked">E-mail Terdaftar <ion-badge color="success" style="font-size: 12px;"><ion-icon style="color: #fff; font-size: 12px;" name="checkmark-sharp"></ion-icon> Terverifikasi</ion-badge></ion-label>
+	        <ion-input style="color: #858585;" type="text" [(ngModel)]="email" readonly></ion-input>
+	    </ion-item>
+
+	    <div style="border-bottom: 1px solid #858585; margin-bottom: 20px;"></div>
+
+	    <form formclass [formGroup]="registrationForm" (ngSubmit)="submit()">
+
+	    <ion-item>
+          <ion-label label position="stacked">Kata Sandi Lama *</ion-label>
+          <ion-input name="password" formControlName="password__" [type]="showPassword__ ? 'text' : 'password'"></ion-input>
+          <ion-icon matadewa slot="end" (click)="togglePassword__()" [name]="passwordToggleIcon__"></ion-icon>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.password__">
+          <ng-container *ngIf="password__.hasError(error.type) && (password__.dirty || password__.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	   	<ion-item>
+          <ion-label label position="stacked">Kata Sandi Baru*</ion-label>
+          <ion-input name="password" formControlName="password1__" [type]="showPassword1__ ? 'text' : 'password'"></ion-input>
+          <ion-icon matadewa slot="end" (click)="togglePassword1__()" [name]="passwordToggleIcon1__"></ion-icon>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.password1__">
+          <ng-container *ngIf="password1__.hasError(error.type) && (password1__.dirty || password1__.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label label position="stacked">Konfirmasi Kata Sandi Baru*</ion-label>
+          <ion-input name="password" formControlName="konfirmpassword__" [type]="showPassword2__ ? 'text' : 'password'"></ion-input>
+          <ion-icon matadewa slot="end" (click)="togglePassword2__()" [name]="passwordToggleIcon2__"></ion-icon>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.konfirmpassword__">
+          <ng-container *ngIf="konfirmpassword__.hasError(error.type) && (konfirmpassword__.dirty || konfirmpassword__.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+	  	<ion-button class="btnregister" [disabled]="!registrationForm.valid" type="submit" expand="block">Ubah Kata Sandi</ion-button>
+    	</form>
+	  </ion-list>
+	  
+
+</ion-content>

@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start">
+    	<ion-icon name="arrow-back-outline" style="margin-left: 10px;" (click)="back_tabs1()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun">Diskon dan Promo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-toolbar>
+        <ion-segment value="disc" [(ngModel)]="yudsegment">
+          <ion-segment-button nocaps value="disc" checked><b>Diskon</b></ion-segment-button>
+          <ion-segment-button nocaps value="promo"><b>Promo</b></ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="dots"></ion-refresher-content>
+	</ion-refresher>
+
+    <div [ngSwitch]="yudsegment">
+      <ion-list class="list" *ngSwitchCase="'disc'">
+
+      	<ng-container *ngIf="_diskon==99; then diskonnull; else diskon"></ng-container>
+
+      	<ng-template #diskonnull>
+      		<img style="padding: 20px 10px; margin-top: 20px;" src="assets/emptydata.svg" height="200" width="100%" />
+			<ion-card-content style="text-align: center;">
+				Belum ada diskon produk untuk saat ini..
+			</ion-card-content>
+      	</ng-template>
+
+      	<ng-template #diskon>
+      		<ion-card *ngFor="let diskon of _diskon" class="card" >
+			  <ion-item lines="none" >
+		          <ion-thumbnail slot="start" style="margin: 0px; padding: 10px 0px; padding-right: 16px;">
+		            <img style="" src="assets/tagdiskon.svg">
+		          </ion-thumbnail>
+		          <ion-label style="margin: 5px 0px;">
+		          	<p>Diskon produk</p>
+		            <h3 style="white-space: pre-wrap !important; text-align: justify;">{{diskon.catalog_desc}}</h3>
+		          </ion-label>
+		      </ion-item>
+		      <ion-item lines="none">
+		      	<ion-label style="margin: 0px;">
+		      		<b>
+		      		<ng-container *ngIf="diskon.discctl_persen==0; then diskbsu; else diskpersen"></ng-container>
+		      		<ng-template #diskbsu>
+				  		<p style="font-size: 12px;"><span>Disk. {{diskon.discctl_value | currency:"IDR":'Rp.':"1.0" }}</span><span style="float: right;">Min. {{diskon.discctl_bsu_min | currency:"IDR":'Rp.':"1.0" }}</span></p>
+		      		</ng-template>
+
+		      		<ng-template #diskpersen>
+		      			<p style="font-size: 12px;"><span>Disk. {{diskon.discctl_persen}}%</span><span style="float: right;">Min. {{diskon.discctl_bsu_min | currency:"IDR":'Rp.':"1.0" }}</span></p>
+		      		</ng-template>
+		      		</b>
+				</ion-label>
+		      </ion-item>
+			</ion-card>
+      	</ng-template>
+
+      </ion-list>
+      <ion-list class="list" *ngSwitchCase="'promo'">
+
+      	<ng-container *ngIf="_promo==99; then promonull; else promoo"></ng-container>
+
+      	<ng-template #promonull>
+      		<img style="padding: 20px 10px; margin-top: 20px;" src="assets/emptydata.svg" height="200" width="100%" />
+			<ion-card-content style="text-align: center;">
+				Belum ada promo untuk saat ini..
+			</ion-card-content>
+      	</ng-template>
+
+      	<ng-template #promoo>
+      		<ion-card *ngFor="let promo of _promo" class="card" >
+			  <ion-item lines="none" >
+		          <ion-thumbnail slot="start" style="margin: 0px; padding: 10px 0px; padding-top: 4px; padding-right: 16px;">
+		            <img style="" src="assets/tagpromo.svg">
+		          </ion-thumbnail>
+		          <ion-label style="margin: 5px 0px;">
+		          	<p>Promo</p>
+		            <h3 style="white-space: pre-wrap !important; text-align: justify;">{{promo.promo_desc}}</h3>
+		            <p style="font-size: 11px;">Berlaku {{ promo.promo_date_start | date:'dd LLL yyyy h:mm' }} - {{promo.promo_date_end | date:'dd LLL yyyy h:mm'}}</p>
+		          </ion-label>
+		      </ion-item>
+		      <ion-item lines="none">
+		      	<ion-label style="margin: 0px;">
+		      		<b>
+		      		<ng-container *ngIf="promo.promo_persen_value==0; then diskbsu; else diskpersen"></ng-container>
+		      		<ng-template #diskbsu>
+				  		<p style="font-size: 12px;"><span>Disk. {{promo.promo_amount_value | currency:"IDR":'Rp.':"1.0" }}</span><span style="float: right;">Min. {{promo.promo_min_buy | currency:"IDR":'Rp.':"1.0" }}</span></p>
+		      		</ng-template>
+
+		      		<ng-template #diskpersen>
+		      			<p style="font-size: 12px;"><span>Disk. {{promo.promo_persen_value}}%</span><span style="float: right;">Min. {{promo.promo_min_buy | currency:"IDR":'Rp.':"1.0" }}</span></p>
+		      		</ng-template>
+		      		</b>
+				</ion-label>
+		      </ion-item>
+			</ion-card>
+      	</ng-template>
+
+      </ion-list>
+    </div>
+
+</ion-content>

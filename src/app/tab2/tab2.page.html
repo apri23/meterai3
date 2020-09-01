@@ -1,0 +1,108 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+  	<ion-title class="title">Tentang Meterai</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar class="tol">
+  	<ion-title class="titleakun">Tentang Meterai</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-list>
+		<ion-list-header>
+			<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>TENTANG METERAI
+		</ion-list-header>
+
+		<ion-item-group>
+		  <ion-item (click)="opendesctentang(1,'','Bea Meterai')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Bea Meterai</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(2,'','Tarif Bea Meterai')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Tarif Bea Meterai</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(3,'','Bentuk, Ukuran dan Warna Benda meterai')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Bentuk, Ukuran dan Warna Benda meterai</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(4,'','Sanksi Terkait benda meterai')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Sanksi Terkait Benda Meterai</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(5,'','Ciri-ciri Meterai Asli')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Ciri-ciri Meterai Asli</ion-label>
+		  </ion-item>
+		</ion-item-group>
+	</ion-list>
+
+	<ion-list>
+		<ion-list-header>
+			<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>INFORMASI
+		</ion-list-header>
+
+		<ion-item-group>
+		  <ion-item (click)="opendesctentang(6,'Tentang Kami','INFORMASI')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Tentang Kami</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(7,'Pengiriman','INFORMASI')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Pengiriman</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(8,'Pengumuman Resmi','INFORMASI')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Pengumuman Resmi</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(9,'Syarat & Ketentuan','INFORMASI')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Syarat & Ketentuan</ion-label>
+		  </ion-item>
+		</ion-item-group>
+	</ion-list>
+
+	<ion-list>
+		<ion-list-header>
+			<ion-col style="padding: 0; padding-right: 10px; margin: 5px 0px 5px; max-width: 1px; height: 35px; border-left: 2px solid #02275d;"></ion-col>PELAYANAN
+		</ion-list-header>
+
+		<ion-item-group>
+		  <ion-item (click)="opendesctentang(10,'Pusat Bantuan','PELAYANAN')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Pusat Bantuan</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(11,'Hubungi Kami','PELAYANAN')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Hubungi Kami</ion-label>
+		  </ion-item>
+
+		  <ion-item (click)="opendesctentang(12,'Kebijakan Privasi','PELAYANAN')">
+		    <ion-label style="font-size: 12px; padding-left: 20px;" >Kebijakan Privasi</ion-label>
+		  </ion-item>
+		</ion-item-group>
+	</ion-list>	
+
+	<ion-grid style="padding: 0px; margin-top: 20px; height: 40px;">
+		<ion-item color="primary" class="follow">
+          <ion-label class="ikutikami">Ikuti Kami</ion-label>
+          <ion-icon class="fb" (click)="openfb()" name="logo-facebook"></ion-icon>
+		  <ion-icon class="ig" (click)="openig()" name="logo-instagram"></ion-icon>
+        </ion-item>
+	</ion-grid>
+
+	<ion-grid style="margin-top: 20px;">
+	  <ion-row>
+	    <ion-col (click)="openpci()" size="6" style="padding-left: 15px; padding-top: 15px; padding-right: 7.5px; padding-bottom: 15px;">
+	    	<ion-img class="imgpos" src="https://meterai.posindonesia.co.id/assets/images/logo/Pos-Indonesia.png"></ion-img>
+	    </ion-col>
+	    <ion-col (click)="opendjp()" size="6" style="padding-left: 7.5px; padding-top: 15px; padding-right: 15px; padding-bottom: 15px">
+	    	<ion-img class="imgdjp" src="https://meterai.posindonesia.co.id/assets/images/logo/Logo-DJP.png"></ion-img>
+	    </ion-col>
+	  </ion-row>
+	</ion-grid>
+
+	<ion-title labelbot class="iontextcenterbot">© 2020 PT Pos Indonesia (Persero) - Bangsisfo Support</ion-title>
+  
+</ion-content>

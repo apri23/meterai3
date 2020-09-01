@@ -1,0 +1,94 @@
+
+.tol {
+  --background: var(--ion-color-primary);
+  color: var(--ion-color-light);
+}
+
+.textcolor{
+	color: #5A5151;
+}
+
+ion-slide {
+    display: block;
+}
+
+[sliders]{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.img-slide {
+	height: 150px;
+	width: 470px;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+}
+
+.slide-img-padding {
+	padding: 0px 0px 0px;
+    padding-bottom: 23px;
+    border-radius: 2px;
+}
+
+.imgHolder span {
+    position: absolute;
+    bottom: 9px;
+  	right: 10px;
+  	font-size: 10px;
+}
+
+.boxpoint{
+	border-radius: 8px;
+	margin: 20px 10px;
+	padding: 0px;
+	height: 50px;
+	background-color: #fff;
+	vertical-align: middle;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+}
+
+.boxicon{
+	padding: 12px 15px 12px;
+	font-family:  'Ubuntu' !important;
+	font-size: 19px;
+	color: rgba(49, 53, 59, 0.68);
+}
+
+.boxtext{
+	padding: 10px 0px 10px 15px;
+	font-size: 13px;
+	color: #5A5151;
+	width: 130px;
+}
+
+.colproduk{
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+	margin: 3px;
+	border-radius: 5px;
+}
+
+.imgproduk{
+	// height: 130px;
+	width: 100%;
+}
+
+.badgenotif {
+    height: 16px;
+    max-width: 26px;
+    background-color: rgb(234, 33, 45);
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    z-index: 1;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+

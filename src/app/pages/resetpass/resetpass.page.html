@@ -1,0 +1,24 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="tol">
+    <ion-buttons class="ikon" slot="start" style="margin-left: 10px;">
+    	<ion-icon name="close" (click)="closemodal()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="titleakun" >Lupa Kata Sandi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-item style="--background: rgba(235, 255, 222, 0.9);" lines="none">
+	    <ion-label style="font-size: 13px; margin: 5px 0px;padding-top: 5px; white-space: pre-wrap !important;"><p>Lupa kata sandi? Masukkan email yang Anda daftarkan di bawah ini. Kami akan mengirimkan pesan email untuk me-reset kata sandi Anda.</p></ion-label>
+	</ion-item>
+
+	<ion-list class="textcolor">
+		<ion-item >
+          <ion-label label position="floating">Masukkan E-mail *</ion-label>
+          <ion-input autocapitalize inputmode="email" [(ngModel)]="email_input" ></ion-input>
+        </ion-item>
+        <ion-button [disabled]="canSave" color="primary" class="ion-button-class" fill="solid" size="default" expand="block" (click)="reset_action()">KIRIM</ion-button>
+    </ion-list>
+
+</ion-content>

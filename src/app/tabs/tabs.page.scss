@@ -1,0 +1,24 @@
+ion-tab-bar {
+  --background: #DEF4FF;
+}
+
+.badgenotif {
+    height: 16px;
+    max-width: 26px;
+    background-color: rgb(234, 33, 45);
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: 4px;
+    // left: 15px;
+    right: 2px;
+    z-index: 1;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 5px;
+}
